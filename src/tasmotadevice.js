@@ -18,6 +18,8 @@ class TasmotaDevice extends EventEmitter {
         //device configuration
         this.name = config.name;
         this.serial = config.serial;
+        this.mymodel = config.model;
+        this.devicenumberid = config.devicenumberid;
         const host = config.host;
         const auth = config.auth || false;
         const url = `http://${host}/cm?cmnd=`;
@@ -236,7 +238,8 @@ class TasmotaDevice extends EventEmitter {
             //status FWR
             const statusFwr = deviceInfo.StatusFWR ?? {};
             const firmwareRevision = statusFwr.Version ?? 'Unknown';
-            const modelName = statusFwr.Hardware ?? 'Unknown';
+            // const modelName = statusFwr.Hardware ?? 'Unknown';
+            const modelName = this.mymodel;
 
             //status NET
             const statusNet = deviceInfo.StatusNET ?? {};
@@ -250,7 +253,7 @@ class TasmotaDevice extends EventEmitter {
             const statusSts = deviceInfo.StatusSTS ?? {};
             const statusStsKeys = Object.keys(statusSts);
 
-            this.device = statusSnsKeys.includes('MiElHVAC') ? 0 : statusStsKeys.some(key => LightKeys.includes(key)) ? 2 : 1;
+            this.device = this.devicenumberid; //statusSnsKeys.includes('MiElHVAC') ? 0 : statusStsKeys.some(key => LightKeys.includes(key)) ? 2 : 1;
             this.deviceName = deviceName;
             this.friendlyNames = friendlyNames;
             this.modelName = modelName;
