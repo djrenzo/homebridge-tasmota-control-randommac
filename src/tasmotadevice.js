@@ -213,6 +213,13 @@ class TasmotaDevice extends EventEmitter {
             const deviceInfo = deviceInfoData.data ?? {};
             const debug = this.enableDebugMode ? this.emit('debug', `Info: ${JSON.stringify(deviceInfo, null, 2)}`) : false;
             await new Promise(resolve => setTimeout(resolve, 250));
+            
+            // Helper function to generate a random MAC address
+            const generateRandomMac = () => {
+                return "02:00:00:" + [...Array(3)]
+                    .map(() => Math.floor(Math.random() * 256).toString(16).padStart(2, "0"))
+                    .join(":");
+            };
 
             //status
             const friendlyNames = [];
@@ -232,7 +239,7 @@ class TasmotaDevice extends EventEmitter {
 
             //status NET
             const statusNet = deviceInfo.StatusNET ?? {};
-            const addressMac = statusNet.Mac ?? false;
+            const addressMac = generateRandomMac();
 
             //status SNS
             const statusSns = deviceInfo.StatusSNS ?? {};
