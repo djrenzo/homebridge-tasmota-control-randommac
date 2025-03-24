@@ -1521,6 +1521,7 @@ class TasmotaDevice extends EventEmitter {
 
                                 // const temp = `${MiElHVAC.SetTemp}${value}`
                                 const temp = MiElHVAC.SetTemp.replace("#", value);
+                                MiElHVAC.lastSetTemp = value;
                                 await this.axiosInstance(temp);
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'cooling threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                             } catch (error) {
@@ -1547,6 +1548,7 @@ class TasmotaDevice extends EventEmitter {
 
                                     // const temp = `${MiElHVAC.SetTemp}${value}`
                                     const temp = MiElHVAC.SetTemp.replace("#", value);
+                                    MiElHVAC.lastSetTemp = value;
                                     await this.axiosInstance(temp);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'heating threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                                 } catch (error) {
