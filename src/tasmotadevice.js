@@ -1412,15 +1412,15 @@ class TasmotaDevice extends EventEmitter {
                             try {
                                 switch (value) {
                                     case 0: //AUTO
-                                        await this.axiosInstance(autoDryFanMode.replace("#", MiElHVAC.lastSetTemp));
+                                        await this.axiosInstance(autoDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Auto";
                                         break;
                                     case 1: //HEAT
-                                        await this.axiosInstance(heatDryFanMode.replace("#", MiElHVAC.lastSetTemp));
+                                        await this.axiosInstance(heatDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Heat";
                                         break;
                                     case 2: //COOL
-                                        await this.axiosInstance(coolDryFanMode.replace("#", MiElHVAC.lastSetTemp));
+                                        await this.axiosInstance(coolDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Cool";
                                         break;
                                 };
@@ -1475,7 +1475,7 @@ class TasmotaDevice extends EventEmitter {
                                     //fan speed mode
                                     const fanSpeedMap = ['auto', 'quiet', '1', '2', '3', '4'][fanSpeed];
                                     MiElHVAC.lastSetFan = fanSpeed;
-                                    await this.axiosInstance(MiElHVAC.SetFanSpeed[fanSpeedMap].replace("#", MiElHVAC.lastSetTemp).replace("#MODE#", MiElHVAC.lastSetMode));
+                                    await this.axiosInstance(MiElHVAC.SetFanSpeed[fanSpeedMap].replace("#TEMP#", MiElHVAC.lastSetTemp).replace("#MODE#", MiElHVAC.lastSetMode));
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed mode: ${MiElHVAC.FanSpeed[fanSpeedModeText]}`);
                                 } catch (error) {
                                     this.emit('warn', `Set fan speed mode error: ${error}`);
@@ -1530,7 +1530,7 @@ class TasmotaDevice extends EventEmitter {
                                 }
 
                                 // const temp = `${MiElHVAC.SetTemp}${value}`
-                                const temp = MiElHVAC.SetTemp.replace("#", value);
+                                const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
                                 MiElHVAC.lastSetTemp = value;
                                 await this.axiosInstance(temp);
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'cooling threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
@@ -1558,7 +1558,7 @@ class TasmotaDevice extends EventEmitter {
                                     }
 
                                     // const temp = `${MiElHVAC.SetTemp}${value}`
-                                    const temp = MiElHVAC.SetTemp.replace("#", value);
+                                    const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
                                     MiElHVAC.lastSetTemp = value;
                                     await this.axiosInstance(temp);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'heating threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
