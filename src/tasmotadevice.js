@@ -1430,10 +1430,12 @@ class TasmotaDevice extends EventEmitter {
                                     case 1: //HEAT
                                         MiElHVAC.lastSetMode = "Heat";
                                         MiElHVAC.lastSetModeInt = 1;
+                                        MiElHVAC.lastSetTemp = MiElHVAC.lastSetTempHeat;
                                         break;
                                     case 2: //COOL
                                         MiElHVAC.lastSetMode = "Cool";
                                         MiElHVAC.lastSetModeInt = 2;
+                                        MiElHVAC.lastSetTemp = MiElHVAC.lastSetTempCool;
                                         break;
                                 };
                                 
