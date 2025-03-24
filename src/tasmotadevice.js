@@ -1405,23 +1405,30 @@ class TasmotaDevice extends EventEmitter {
                             validValues: this.accessory.operationModeSetPropsValidValues
                         })
                         .onGet(async () => {
-                            const value = this.accessory.targetOperationMode; //1 = HEAT, 2 = DRY 3 = COOL, 7 = FAN, 8 = AUTO
+                            const value = MiElHVAC.lastSetModeInt;
+                                // this.accessory.targetOperationMode; //1 = HEAT, 2 = DRY 3 = COOL, 7 = FAN, 8 = AUTO
                             return value;
                         })
                         .onSet(async (value) => {
                             try {
                                 switch (value) {
                                     case 0: //AUTO
-                                        await this.axiosInstance(autoDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
+                                        // await this.axiosInstance(autoDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Auto";
+                                        MiElHVAC.lastSetModeInt = 0;
+                                        await this.axiosInstance(MiElHVAC.sendCommand());
                                         break;
                                     case 1: //HEAT
-                                        await this.axiosInstance(heatDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
+                                        // await this.axiosInstance(heatDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Heat";
+                                        MiElHVAC.lastSetModeInt = 1;
+                                        await this.axiosInstance(MiElHVAC.sendCommand());
                                         break;
                                     case 2: //COOL
-                                        await this.axiosInstance(coolDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
+                                        // await this.axiosInstance(coolDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Cool";
+                                        MiElHVAC.lastSetModeInt = 2;
+                                        await this.axiosInstance(MiElHVAC.sendCommand());
                                         break;
                                 };
 
