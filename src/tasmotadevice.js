@@ -1657,7 +1657,7 @@ class TasmotaDevice extends EventEmitter {
                                         let data = '';
                                         switch (state) {
                                             case true:
-                                                const setPower = !this.accessory.power ? await this.axiosInstance(MiElHVAC.PowerOn) : false;
+                                                // const setPower = !this.accessory.power ? await this.axiosInstance(MiElHVAC.PowerOn) : false;
                                                 data = MiElHVAC.SetMode[preset.mode];
                                                 await this.axiosInstance(data);
                                                 data = `${MiElHVAC.SetTemp}${preset.setTemp}`;
@@ -1717,7 +1717,7 @@ class TasmotaDevice extends EventEmitter {
                                         let data = '';
                                         switch (mode) {
                                             case 0: //POWER ON,OFF
-                                                data = state ? MiElHVAC.PowerOn : MiElHVAC.PowerOff;
+                                                // data = state ? MiElHVAC.PowerOn : MiElHVAC.PowerOff;
                                                 break;
                                             case 1: //OPERATING MODE HEAT
                                                 button.previousValue = state ? MiElHVAC.SetMode[this.accessory.operationMode] : button.previousValue;
@@ -1860,7 +1860,7 @@ class TasmotaDevice extends EventEmitter {
                                                 return
                                         };
 
-                                        const setPower = !this.accessory.power && state && (mode > 0 && mode < 50) ? await this.axiosInstance(MiElHVAC.PowerOn) : false;
+                                        // const setPower = !this.accessory.power && state && (mode > 0 && mode < 50) ? await this.axiosInstance(MiElHVAC.PowerOn) : false;
                                         await this.axiosInstance(data);
                                         const info = this.disableLogInfo ? false : mode > 0 ? this.emit('message', `${state ? `Set: ${buttonName}` : `Unset: ${buttonName}, Set: ${button.previousValue}`}`) : `Set: ${buttonName}`;
                                         await new Promise(resolve => setTimeout(resolve, 250));
