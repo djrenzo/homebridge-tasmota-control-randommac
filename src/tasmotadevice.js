@@ -1410,13 +1410,13 @@ class TasmotaDevice extends EventEmitter {
                             try {
                                 switch (value) {
                                     case 0: //AUTO
-                                        await this.axiosInstance(autoDryFanMode);
+                                        await this.axiosInstance(autoDryFanMode.replace("#", 22));
                                         break;
                                     case 1: //HEAT
-                                        await this.axiosInstance(heatDryFanMode);
+                                        await this.axiosInstance(heatDryFanMode.replace("#", 23));
                                         break;
                                     case 2: //COOL
-                                        await this.axiosInstance(coolDryFanMode);
+                                        await this.axiosInstance(coolDryFanMode.replace("#", 18));
                                         break;
                                 };
 
@@ -1505,7 +1505,7 @@ class TasmotaDevice extends EventEmitter {
                     this.miElHvacService.getCharacteristic(Characteristic.CoolingThresholdTemperature)
                         .setProps({
                             minValue: 16,
-                            maxValue: 31,
+                            maxValue: 22,
                             minStep: this.accessory.temperatureIncrement
                         })
                         .onGet(async () => {
@@ -1530,8 +1530,8 @@ class TasmotaDevice extends EventEmitter {
                     if (this.accessory.modelSupportsHeat) {
                         this.miElHvacService.getCharacteristic(Characteristic.HeatingThresholdTemperature)
                             .setProps({
-                                minValue: 10,
-                                maxValue: 31,
+                                minValue: 18,
+                                maxValue: 30,
                                 minStep: this.accessory.temperatureIncrement
                             })
                             .onGet(async () => {
@@ -1545,7 +1545,8 @@ class TasmotaDevice extends EventEmitter {
                                         value = (value + this.accessory.defaultCoolingSetTemperature) / 2;
                                     }
 
-                                    const temp = `${MiElHVAC.SetTemp}${value}`
+                                    // const temp = `${MiElHVAC.SetTemp}${value}`
+                                    const temp = MiElHVAC.SetTemp.replace("#", value);
                                     await this.axiosInstance(temp);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'heating threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                                 } catch (error) {
