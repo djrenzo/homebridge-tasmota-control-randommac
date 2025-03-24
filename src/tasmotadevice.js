@@ -307,7 +307,8 @@ class TasmotaDevice extends EventEmitter {
 
                     //status SNS
                     const time = statusSns.Time ?? '';
-                    const temperatureUnit = statusSns.TempUnit === 'C' ? '°C' : 'F';
+                    // const temperatureUnit = statusSns.TempUnit === 'C' ? '°C' : 'F';
+                    const temperatureUnit = '°C'
 
                     //mielhvac
                     const miElHvac = statusSns.MiElHVAC ?? {};
@@ -1385,17 +1386,36 @@ class TasmotaDevice extends EventEmitter {
                         })
                         .onSet(async (state) => {
                             try {
+                                // Only send "PowerOn" if the current powerstate is 0
+                                if (state === 1 && MiElHVAC.powerstate === 0) {
+                                    await this.axiosInstance(MiElHVAC.sendCommand();
+                                } else if (state === 0) {
+                                    await this.axiosInstance(MiElHVAC.PowerOff);
+                                }
+                                // Update stored powerstate
                                 MiElHVAC.powerstate = state;
-                                const power = [MiElHVAC.PowerOff, MiElHVAC.PowerOn][state];
-                                await this.axiosInstance(power);
-                                const info = this.disableLogInfo ? false : this.emit('message', `Set power: ${state ? 'ON' : 'OFF'}`);
+                    
+                                if (!this.disableLogInfo) {
+                                    this.emit('message', `Set power: ${state ? 'ON' : 'OFF'}`);
+                                }
                             } catch (error) {
                                 this.emit('warn', `Set power error: ${error}`);
-                            };
+                            }
                         });
+                        // .onSet(async (state) => {
+                        //     try {
+                        //         MiElHVAC.powerstate = state;
+                        //         const power = [MiElHVAC.PowerOff, MiElHVAC.PowerOn][state];
+                        //         await this.axiosInstance(power);
+                        //         const info = this.disableLogInfo ? false : this.emit('message', `Set power: ${state ? 'ON' : 'OFF'}`);
+                        //     } catch (error) {
+                        //         this.emit('warn', `Set power error: ${error}`);
+                        //     };
+                        // });
                     this.miElHvacService.getCharacteristic(Characteristic.CurrentHeaterCoolerState)
                         .onGet(async () => {
-                            const value = this.accessory.currentOperationMode;
+                            const value = MiElHVAC.lastSetModeInt;
+                                // this.accessory.currentOperationMode;
                             return value;
                         });
                     this.miElHvacService.getCharacteristic(Characteristic.TargetHeaterCoolerState)
@@ -1482,7 +1502,8 @@ class TasmotaDevice extends EventEmitter {
                                     //fan speed mode
                                     const fanSpeedMap = ['auto', 'quiet', '1', '2', '3', '4'][fanSpeed];
                                     MiElHVAC.lastSetFan = fanSpeed;
-                                    await this.axiosInstance(MiElHVAC.SetFanSpeed[fanSpeedMap].replace("#TEMP#", MiElHVAC.lastSetTemp).replace("#MODE#", MiElHVAC.lastSetMode));
+                                    await this.axiosInstance(MiElHVAC.sendCommand());
+                                    // await this.axiosInstance(MiElHVAC.SetFanSpeed[fanSpeedMap].replace("#TEMP#", MiElHVAC.lastSetTemp).replace("#MODE#", MiElHVAC.lastSetMode));
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed mode: ${MiElHVAC.FanSpeed[fanSpeedModeText]}`);
                                 } catch (error) {
                                     this.emit('warn', `Set fan speed mode error: ${error}`);
@@ -1537,9 +1558,10 @@ class TasmotaDevice extends EventEmitter {
                                 }
 
                                 // const temp = `${MiElHVAC.SetTemp}${value}`
-                                const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
+                                // const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
                                 MiElHVAC.lastSetTemp = value;
-                                await this.axiosInstance(temp);
+                                await this.axiosInstance(MiElHVAC.sendCommand());
+                                // await this.axiosInstance(temp);
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'cooling threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                             } catch (error) {
                                 this.emit('warn', `Set cooling threshold temperature error: ${error}`);
@@ -1565,9 +1587,10 @@ class TasmotaDevice extends EventEmitter {
                                     }
 
                                     // const temp = `${MiElHVAC.SetTemp}${value}`
-                                    const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
+                                    // const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
                                     MiElHVAC.lastSetTemp = value;
-                                    await this.axiosInstance(temp);
+                                    await this.axiosInstance(MiElHVAC.sendCommand());
+                                    // await this.axiosInstance(temp);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'heating threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                                 } catch (error) {
                                     this.emit('warn', `Set heating threshold temperature error: ${error}`);
