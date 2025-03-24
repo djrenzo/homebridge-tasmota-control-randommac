@@ -1379,11 +1379,13 @@ class TasmotaDevice extends EventEmitter {
                     this.miElHvacService = new Service.HeaterCooler(accessoryName, `HeaterCooler ${this.serialNumber}`);
                     this.miElHvacService.getCharacteristic(Characteristic.Active)
                         .onGet(async () => {
-                            const state = this.accessory.power;
+                            const state = MiElHVAC.powerstate;
+                                //this.accessory.power;
                             return state;
                         })
                         .onSet(async (state) => {
                             try {
+                                MiElHVAC.powerstate = state;
                                 const power = [MiElHVAC.PowerOff, MiElHVAC.PowerOn][state];
                                 await this.axiosInstance(power);
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set power: ${state ? 'ON' : 'OFF'}`);
@@ -1427,7 +1429,8 @@ class TasmotaDevice extends EventEmitter {
                         });
                     this.miElHvacService.getCharacteristic(Characteristic.CurrentTemperature)
                         .onGet(async () => {
-                            const value = this.accessory.roomTemperature;
+                            const value = MiElHVAC.lastSetTemp;
+                                //this.accessory.roomTemperature;
                             return value;
                         });
                     if (this.accessory.modelSupportsFanSpeed) {
@@ -1509,7 +1512,8 @@ class TasmotaDevice extends EventEmitter {
                             minStep: this.accessory.temperatureIncrement
                         })
                         .onGet(async () => {
-                            const value = this.accessory.operationMode === 'auto' ? this.accessory.defaultCoolingSetTemperature : this.accessory.setTemperature;
+                            const value = MiElHVAC.lastSetTemp;
+                                // this.accessory.operationMode === 'auto' ? this.accessory.defaultCoolingSetTemperature : this.accessory.setTemperature;
                             return value;
                         })
                         .onSet(async (value) => {
@@ -1536,7 +1540,8 @@ class TasmotaDevice extends EventEmitter {
                                 minStep: this.accessory.temperatureIncrement
                             })
                             .onGet(async () => {
-                                const value = this.accessory.operationMode === 'auto' ? this.accessory.defaultHeatingSetTemperature : this.accessory.setTemperature;
+                                const value =  MiElHVAC.lastSetTemp;
+                                    //this.accessory.operationMode === 'auto' ? this.accessory.defaultHeatingSetTemperature : this.accessory.setTemperature;
                                 return value;
                             })
                             .onSet(async (value) => {
