@@ -1437,7 +1437,7 @@ class TasmotaDevice extends EventEmitter {
                         this.miElHvacService.getCharacteristic(Characteristic.RotationSpeed)
                             .setProps({
                                 minValue: 0,
-                                maxValue: 4
+                                maxValue: 4,
                                     //this.accessory.fanSpeedSetPropsMaxValue,
                                 minStep: 1
                             })
