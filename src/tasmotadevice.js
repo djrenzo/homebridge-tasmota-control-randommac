@@ -1402,16 +1402,7 @@ class TasmotaDevice extends EventEmitter {
                                 this.emit('warn', `Set power error: ${error}`);
                             }
                         });
-                        // .onSet(async (state) => {
-                        //     try {
-                        //         MiElHVAC.powerstate = state;
-                        //         const power = [MiElHVAC.PowerOff, MiElHVAC.PowerOn][state];
-                        //         await this.axiosInstance(power);
-                        //         const info = this.disableLogInfo ? false : this.emit('message', `Set power: ${state ? 'ON' : 'OFF'}`);
-                        //     } catch (error) {
-                        //         this.emit('warn', `Set power error: ${error}`);
-                        //     };
-                        // });
+                    
                     this.miElHvacService.getCharacteristic(Characteristic.CurrentHeaterCoolerState)
                         .onGet(async () => {
                             const value = MiElHVAC.lastSetModeInt;
@@ -1433,24 +1424,16 @@ class TasmotaDevice extends EventEmitter {
                             try {
                                 switch (value) {
                                     case 0: //AUTO
-                                        // await this.axiosInstance(autoDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Auto";
                                         MiElHVAC.lastSetModeInt = 0;
-                                        // if (MiElHVAC.powerstate === 0) {
-                                        //     await this.axiosInstance(MiElHVAC.sendCommand());
-                                        // }
                                         break;
                                     case 1: //HEAT
-                                        // await this.axiosInstance(heatDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Heat";
                                         MiElHVAC.lastSetModeInt = 1;
-                                        // await this.axiosInstance(MiElHVAC.sendCommand());
                                         break;
                                     case 2: //COOL
-                                        // await this.axiosInstance(coolDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Cool";
                                         MiElHVAC.lastSetModeInt = 2;
-                                        // await this.axiosInstance(MiElHVAC.sendCommand());
                                         break;
                                 };
                                 
@@ -1509,7 +1492,6 @@ class TasmotaDevice extends EventEmitter {
                                     const fanSpeedMap = ['auto', 'quiet', '1', '2', '3', '4'][fanSpeed];
                                     MiElHVAC.lastSetFan = fanSpeed;
                                     await this.axiosInstance(MiElHVAC.sendCommand());
-                                    // await this.axiosInstance(MiElHVAC.SetFanSpeed[fanSpeedMap].replace("#TEMP#", MiElHVAC.lastSetTemp).replace("#MODE#", MiElHVAC.lastSetMode));
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed mode: ${MiElHVAC.FanSpeed[fanSpeedModeText]}`);
                                 } catch (error) {
                                     this.emit('warn', `Set fan speed mode error: ${error}`);
@@ -1552,7 +1534,7 @@ class TasmotaDevice extends EventEmitter {
                             minStep: this.accessory.temperatureIncrement
                         })
                         .onGet(async () => {
-                            const value = MiElHVAC.lastSetTemp;
+                            const value = MiElHVAC.lastSetTempCool;
                                 // this.accessory.operationMode === 'auto' ? this.accessory.defaultCoolingSetTemperature : this.accessory.setTemperature;
                             return value;
                         })
@@ -1566,6 +1548,7 @@ class TasmotaDevice extends EventEmitter {
                                 // const temp = `${MiElHVAC.SetTemp}${value}`
                                 // const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
                                 MiElHVAC.lastSetTemp = value;
+                                MiElHVAC.lastSetTempCool = value;
                                 await this.axiosInstance(MiElHVAC.sendCommand());
                                 // await this.axiosInstance(temp);
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'cooling threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
@@ -1581,7 +1564,7 @@ class TasmotaDevice extends EventEmitter {
                                 minStep: this.accessory.temperatureIncrement
                             })
                             .onGet(async () => {
-                                const value =  MiElHVAC.lastSetTemp;
+                                const value =  MiElHVAC.lastSetTempHeat;
                                     //this.accessory.operationMode === 'auto' ? this.accessory.defaultHeatingSetTemperature : this.accessory.setTemperature;
                                 return value;
                             })
@@ -1595,6 +1578,7 @@ class TasmotaDevice extends EventEmitter {
                                     // const temp = `${MiElHVAC.SetTemp}${value}`
                                     // const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
                                     MiElHVAC.lastSetTemp = value;
+                                    MiElHVAC.lastSetTempHeat = value;
                                     await this.axiosInstance(MiElHVAC.sendCommand());
                                     // await this.axiosInstance(temp);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'heating threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
