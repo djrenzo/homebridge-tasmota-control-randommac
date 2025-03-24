@@ -1442,7 +1442,7 @@ class TasmotaDevice extends EventEmitter {
                                 minStep: 1
                             })
                             .onGet(async () => {
-                                const value = 4
+                                const value = MiElHVAC.lastSetFan;
                                     //this.accessory.fanSpeed; //AUTO, 1, 2, 3, 4, 5
                                 return value;
                             })
@@ -1471,7 +1471,8 @@ class TasmotaDevice extends EventEmitter {
 
                                     //fan speed mode
                                     const fanSpeedMap = ['auto', 'quiet', '1', '2', '3', '4'][fanSpeed];
-                                    await this.axiosInstance(MiElHVAC.SetFanSpeed[fanSpeedMap]);
+                                    MiElHVAC.lastSetFan = fanSpeed;
+                                    await this.axiosInstance(MiElHVAC.SetFanSpeed[fanSpeedMap].replace("#", MiElHVAC.lastSetTemp));
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed mode: ${MiElHVAC.FanSpeed[fanSpeedModeText]}`);
                                 } catch (error) {
                                     this.emit('warn', `Set fan speed mode error: ${error}`);
