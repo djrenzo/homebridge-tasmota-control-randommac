@@ -1388,7 +1388,7 @@ class TasmotaDevice extends EventEmitter {
                             try {
                                 // Only send "PowerOn" if the current powerstate is 0
                                 if (state === 1 && MiElHVAC.powerstate === 0) {
-                                    await this.axiosInstance(MiElHVAC.sendCommand();
+                                    await this.axiosInstance(MiElHVAC.sendCommand());
                                 } else if (state === 0) {
                                     await this.axiosInstance(MiElHVAC.PowerOff);
                                 }
