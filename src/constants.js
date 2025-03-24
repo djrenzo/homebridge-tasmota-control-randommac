@@ -49,6 +49,23 @@ export const MiElHVAC = {
             return this.baseCommand.replace("#MODE#", this.lastSetMode).replace("#TEMP#", this.lastSetTemp).replace("#FANSPEED#", this.fanSpeeds[this.lastSetFan]);
         }
     },
+    "PowerOn": "irhvac",
+    "SetTemp": "irhvac",
+    "SetMode": {
+        "heat": "irhvac",
+        "dry": "irhvac",
+        "cool": "irhvac",
+        "fan": "irhvac",
+        "auto": "irhvac",
+        "purify": "irhvac"
+    },
+    "SetFanSpeed": {
+        "auto": "irhvac",
+        "quiet": "irhvac",
+        "1": "irhvac",
+        "2": "irhvac",
+        "3": "irhvac"
+    },
     "SetSwingV": {
         "auto": "HVACSetSwingV%20auto",
         "up": "HVACSetSwingV%20up",
