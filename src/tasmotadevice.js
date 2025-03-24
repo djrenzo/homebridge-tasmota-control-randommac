@@ -1441,7 +1441,8 @@ class TasmotaDevice extends EventEmitter {
                                 minStep: 1
                             })
                             .onGet(async () => {
-                                const value = this.accessory.fanSpeed; //AUTO, 1, 2, 3, 4, 5
+                                const value = 4
+                                    //this.accessory.fanSpeed; //AUTO, 1, 2, 3, 4, 5
                                 return value;
                             })
                             .onSet(async (value) => {
