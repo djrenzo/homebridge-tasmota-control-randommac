@@ -26,6 +26,7 @@ export const ApiCommands = {
 export const MiElHVAC = {
     lastSetTemp: 18,
     lastSetFan: 1,
+    lastSetMode: "Auto",
     powerstate: 0,
     "PowerOn": "irhvac",
         // :{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\"}",
@@ -39,11 +40,11 @@ export const MiElHVAC = {
         "purify": "HVACSetMode%20purify"
     },
     "SetFanSpeed": {
-        "auto": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Auto\",\"Temp\":\"#\",\"FanSpeed\":\"Auto\"}",
-        "quiet": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Auto\",\"Temp\":\"#\",\"FanSpeed\":\"Low\"}",
-        "1": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Auto\",\"Temp\":\"#\",\"FanSpeed\":\"Medium\"}",
-        "2": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Auto\",\"Temp\":\"#\",\"FanSpeed\":\"High\"}",
-        "3": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Auto\",\"Temp\":\"#\",\"FanSpeed\":\"Max\"}",
+        "auto": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"Auto\"}",
+        "quiet": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"Low\"}",
+        "1": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"Medium\"}",
+        "2": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"High\"}",
+        "3": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"Max\"}",
         "4": "HVACSetFanSpeed%204"
     },
     "SetTemp": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\",\"Temp\":\"#\"}",
