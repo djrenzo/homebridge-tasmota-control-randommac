@@ -1436,21 +1436,27 @@ class TasmotaDevice extends EventEmitter {
                                         // await this.axiosInstance(autoDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Auto";
                                         MiElHVAC.lastSetModeInt = 0;
-                                        await this.axiosInstance(MiElHVAC.sendCommand());
+                                        // if (MiElHVAC.powerstate === 0) {
+                                        //     await this.axiosInstance(MiElHVAC.sendCommand());
+                                        // }
                                         break;
                                     case 1: //HEAT
                                         // await this.axiosInstance(heatDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Heat";
                                         MiElHVAC.lastSetModeInt = 1;
-                                        await this.axiosInstance(MiElHVAC.sendCommand());
+                                        // await this.axiosInstance(MiElHVAC.sendCommand());
                                         break;
                                     case 2: //COOL
                                         // await this.axiosInstance(coolDryFanMode.replace("#TEMP#", MiElHVAC.lastSetTemp));
                                         MiElHVAC.lastSetMode = "Cool";
                                         MiElHVAC.lastSetModeInt = 2;
-                                        await this.axiosInstance(MiElHVAC.sendCommand());
+                                        // await this.axiosInstance(MiElHVAC.sendCommand());
                                         break;
                                 };
+                                
+                                if (MiElHVAC.powerstate === 1) {
+                                    await this.axiosInstance(MiElHVAC.sendCommand());
+                                }
 
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set operation mode: ${MiElHVAC.OperationMode[value]}`);
                             } catch (error) {
