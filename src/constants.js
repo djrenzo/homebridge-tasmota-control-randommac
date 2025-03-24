@@ -26,8 +26,7 @@ export const ApiCommands = {
 export const MiElHVAC = {
     "PowerOn": "irhvac",
         // :{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\"}",
-    "PowerOff": "irhvac",
-    // :{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"Off\"}",
+    "PowerOff": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"Off\"}",
     "SetMode": {
         "heat": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\",\"Temp\":\"#\"}",
         "dry": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Dry\",\"Temp\":\"#\"}",
