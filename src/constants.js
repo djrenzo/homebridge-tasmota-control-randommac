@@ -27,7 +27,21 @@ export const MiElHVAC = {
     lastSetTemp: 18,
     lastSetFan: 1,
     lastSetMode: "Auto",
+    lastSetModeInt: 0,
     powerstate: 0,
+
+    comm: {
+        0: "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Auto\"}",
+        1: "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Low\"}",
+        2: "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Medium\"}",
+        3: "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"High\"}",
+        4: "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Max\"}"
+    },
+
+    sendCommand() {
+        return this.comm[this.lastSetFan].replace("#MODE#", this.lastSetMode).replace("#TEMP#", this.lastSetTemp);
+    },
+    
     "PowerOn": "irhvac",
         // :{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\"}",
     "PowerOff": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"Off\"}",
@@ -44,8 +58,7 @@ export const MiElHVAC = {
         "quiet": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Low\"}",
         "1": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Medium\"}",
         "2": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"High\"}",
-        "3": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Max\"}",
-        "4": "HVACSetFanSpeed%204"
+        "3": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Max\"}"
     },
     "SetTemp": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\"}",
     "SetSwingV": {
