@@ -1405,7 +1405,7 @@ class TasmotaDevice extends EventEmitter {
                     
                     this.miElHvacService.getCharacteristic(Characteristic.CurrentHeaterCoolerState)
                         .onGet(async () => {
-                            const value = MiElHVAC.lastSetModeInt;
+                            const value = MiElHVAC.lastSetModeInt + 1; // Inactive (0), Idle (1), Heating (2), Cooling (3)
                                 // this.accessory.currentOperationMode;
                             return value;
                         });
@@ -1417,7 +1417,7 @@ class TasmotaDevice extends EventEmitter {
                         })
                         .onGet(async () => {
                             const value = MiElHVAC.lastSetModeInt;
-                                // this.accessory.targetOperationMode; //1 = HEAT, 2 = DRY 3 = COOL, 7 = FAN, 8 = AUTO
+                                // this.accessory.targetOperationMode; //1 = HEAT, 2 = DRY 3 = COOL, 7 = FAN, 8 = AUTO Auto (0), Heat (1), Cool (2)
                             return value;
                         })
                         .onSet(async (value) => {
