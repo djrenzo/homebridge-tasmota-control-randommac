@@ -32,22 +32,22 @@ export const MiElHVAC = {
         // :{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\"}",
     "PowerOff": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"Off\"}",
     "SetMode": {
-        "heat": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\",\"Temp\":\"#\"}",
-        "dry": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Dry\",\"Temp\":\"#\"}",
-        "cool": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Cool\",\"Temp\":\"#\"}",
-        "fan": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Fan\",\"Temp\":\"#\"}",
-        "auto": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Auto\",\"Temp\":\"#\"}",
+        "heat": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\",\"Temp\":\"#TEMP#\"}",
+        "dry": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Dry\",\"Temp\":\"#TEMP#\"}",
+        "cool": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Cool\",\"Temp\":\"#TEMP#\"}",
+        "fan": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Fan\",\"Temp\":\"#TEMP#\"}",
+        "auto": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Auto\",\"Temp\":\"#TEMP#\"}",
         "purify": "HVACSetMode%20purify"
     },
     "SetFanSpeed": {
-        "auto": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"Auto\"}",
-        "quiet": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"Low\"}",
-        "1": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"Medium\"}",
-        "2": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"High\"}",
-        "3": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#\",\"FanSpeed\":\"Max\"}",
+        "auto": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Auto\"}",
+        "quiet": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Low\"}",
+        "1": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Medium\"}",
+        "2": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"High\"}",
+        "3": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"Max\"}",
         "4": "HVACSetFanSpeed%204"
     },
-    "SetTemp": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\",\"Temp\":\"#\"}",
+    "SetTemp": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\"}",
     "SetSwingV": {
         "auto": "HVACSetSwingV%20auto",
         "up": "HVACSetSwingV%20up",
