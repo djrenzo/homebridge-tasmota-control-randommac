@@ -27,10 +27,10 @@ export const MiElHVAC = {
     "PowerOn": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\"}",
     "PowerOff": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"Off\"}",
     "SetMode": {
-        "heat": "HVACSetMode%20heat",
-        "dry": "HVACSetMode%20dry",
-        "cool": "HVACSetMode%20cool",
-        "fan": "HVACSetMode%20fan",
+        "heat": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\"}",
+        "dry": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Dry\"}",
+        "cool": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Cool\"}",
+        "fan": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Fan\"}",
         "auto": "HVACSetMode%20auto",
         "purify": "HVACSetMode%20purify"
     },
