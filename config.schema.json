@@ -28,6 +28,24 @@
               "format": "hostname",
               "required": true
             },
+            "serial": {
+              "title": "Serialnumber",
+              "type": "string",
+              "placeholder": "EC:94:CB:9D:5C:99",
+              "required": true
+            },
+            "model": {
+              "title": "Model",
+              "type": "string",
+              "placeholder": "DIDIMODEL101",
+              "required": true
+            },
+            "devicenumberid": {
+              "title": "DeviceNumberID",
+              "type": "integer",
+              "placeholder": 1,
+              "required": true
+            },
             "auth": {
               "title": "Authorization",
               "type": "boolean",
