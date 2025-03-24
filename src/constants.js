@@ -42,7 +42,7 @@ export const MiElHVAC = {
         "3": "HVACSetFanSpeed%203",
         "4": "HVACSetFanSpeed%204"
     },
-    "SetTemp": "HVACSetTemp%20",
+    "SetTemp": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"Heat\",\"Temp\":\"#\"}",
     "SetSwingV": {
         "auto": "HVACSetSwingV%20auto",
         "up": "HVACSetSwingV%20up",
