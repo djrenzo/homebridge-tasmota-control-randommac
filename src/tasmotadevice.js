@@ -1410,13 +1410,13 @@ class TasmotaDevice extends EventEmitter {
                             try {
                                 switch (value) {
                                     case 0: //AUTO
-                                        await this.axiosInstance(autoDryFanMode.replace("#", 22));
+                                        await this.axiosInstance(autoDryFanMode.replace("#", MiElHVAC.lastSetTemp));
                                         break;
                                     case 1: //HEAT
-                                        await this.axiosInstance(heatDryFanMode.replace("#", 23));
+                                        await this.axiosInstance(heatDryFanMode.replace("#", MiElHVAC.lastSetTemp));
                                         break;
                                     case 2: //COOL
-                                        await this.axiosInstance(coolDryFanMode.replace("#", 18));
+                                        await this.axiosInstance(coolDryFanMode.replace("#", MiElHVAC.lastSetTemp));
                                         break;
                                 };
 
