@@ -271,7 +271,7 @@ class TasmotaDevice extends EventEmitter {
     async checkDeviceState() {
         const debug = this.enableDebugMode ? this.emit('debug', `Requesting status`) : false;
         try {
-            if (this.device != 0){
+            if (this.device !== 0){
                 //power status
                 const powerStatusData = await this.axiosInstance(ApiCommands.PowerStatus);
                 const powerStatus = powerStatusData.data ?? {};
@@ -298,9 +298,11 @@ class TasmotaDevice extends EventEmitter {
                 const statusSts = statusStsSupported ? sensorStatus.StatusSTS : {};
                 const statusStsKeys = Object.keys(statusSts);
 
-                //relays
-                const relaysCount = this.relaysCount;
+                
             }
+            
+            //relays
+            const relaysCount = this.relaysCount;
 
             //device
             switch (this.device) {
