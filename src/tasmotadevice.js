@@ -1006,8 +1006,7 @@ class TasmotaDevice extends EventEmitter {
                     this.miElHvacService = new Service.HeaterCooler(accessoryName, `HeaterCooler ${this.serialNumber}`);
                     this.miElHvacService.getCharacteristic(Characteristic.Active)
                         .onGet(async () => {
-                            const state = MiElHVAC.powerstate;
-                                //this.accessory.power;
+                            const state = MiElHVAC.powerstate; //this.accessory.power;
                             return state;
                         })
                         .onSet(async (state) => {
@@ -1034,8 +1033,7 @@ class TasmotaDevice extends EventEmitter {
                     
                     this.miElHvacService.getCharacteristic(Characteristic.CurrentHeaterCoolerState)
                         .onGet(async () => {
-                            const value = MiElHVAC.lastSetModeInt + 1; // Inactive (0), Idle (1), Heating (2), Cooling (3)
-                                // this.accessory.currentOperationMode;
+                            const value = MiElHVAC.lastSetModeInt + 1; // Inactive (0), Idle (1), Heating (2), Cooling (3) // this.accessory.currentOperationMode;
                             return value;
                         });
                     this.miElHvacService.getCharacteristic(Characteristic.TargetHeaterCoolerState)
@@ -1045,8 +1043,7 @@ class TasmotaDevice extends EventEmitter {
                             validValues: this.accessory.operationModeSetPropsValidValues
                         })
                         .onGet(async () => {
-                            const value = MiElHVAC.lastSetModeInt;
-                                // this.accessory.targetOperationMode; //1 = HEAT, 2 = DRY 3 = COOL, 7 = FAN, 8 = AUTO Auto (0), Heat (1), Cool (2)
+                            const value = MiElHVAC.lastSetModeInt; // this.accessory.targetOperationMode; //1 = HEAT, 2 = DRY 3 = COOL, 7 = FAN, 8 = AUTO Auto (0), Heat (1), Cool (2)
                             return value;
                         })
                         .onSet(async (value) => {
@@ -1096,15 +1093,32 @@ class TasmotaDevice extends EventEmitter {
                             })
                             .onSet(async (value) => {
                                 try { //fan speed mode
-                                    MiElHVAC.lastSetFan = fanSpeed;
+                                    MiElHVAC.lastSetFan = value;
 
                                     if (MiElHVAC.powerstate === 1) {
                                         await this.axiosInstance(MiElHVAC.sendCommand());
                                         this.emit('warn', `Sendcommand FANSPEED`);
-                                    }
+                                    };
+                                    
+                                    // update fanspeed 4 button
+                                    if (value === 4){
+                                        if (this.buttonsConfiguredCount > 0) {
+                                            for (let i = 0; i < this.buttonsConfiguredCount; i++) {
+                                                const button = this.buttonsConfigured[i];
+                                                const mode = button.mode; //get button mode
+                                                
+                                                if (this.buttonsServices) { //update services
+                                                    if (mode === 34){
+                                                        button.state = true;
+                                                        
+                                                        const characteristicType = button.characteristicType;
+                                                        this.buttonsServices[i].updateCharacteristic(characteristicType, button.state)
+                                                    };
+                                                };
+                                            };
+                                        };
+                                    };
 
-                                    // await this.axiosInstance(MiElHVAC.sendCommand());
-                                    // this.emit('warn', `Sendcommand FANSPEED`);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed mode: ${MiElHVAC.FanSpeed[fanSpeedModeText]}`);
                                 } catch (error) {
                                     this.emit('warn', `Set fan speed mode error: ${error}`);
@@ -1147,8 +1161,7 @@ class TasmotaDevice extends EventEmitter {
                             minStep: this.accessory.temperatureIncrement
                         })
                         .onGet(async () => {
-                            const value = MiElHVAC.lastSetTempCool;
-                                // this.accessory.operationMode === 'auto' ? this.accessory.defaultCoolingSetTemperature : this.accessory.setTemperature;
+                            const value = MiElHVAC.lastSetTempCool; // this.accessory.operationMode === 'auto' ? this.accessory.defaultCoolingSetTemperature : this.accessory.setTemperature;
                             return value;
                         })
                         .onSet(async (value) => {
@@ -1158,8 +1171,6 @@ class TasmotaDevice extends EventEmitter {
                                     value = (value + this.accessory.defaultHeatingSetTemperature) / 2;
                                 }
 
-                                // const temp = `${MiElHVAC.SetTemp}${value}`
-                                // const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
                                 MiElHVAC.lastSetTemp = value;
                                 MiElHVAC.lastSetTempCool = value;
                                 
@@ -1168,9 +1179,6 @@ class TasmotaDevice extends EventEmitter {
                                     this.emit('warn', `Sendcommand COOLTEMPSET`);
                                 }
 
-                                // await this.axiosInstance(MiElHVAC.sendCommand());
-                                // this.emit('warn', `Sendcommand COOLTEMPSET`);
-                                // await this.axiosInstance(temp);
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'cooling threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                             } catch (error) {
                                 this.emit('warn', `Set cooling threshold temperature error: ${error}`);
@@ -1184,8 +1192,7 @@ class TasmotaDevice extends EventEmitter {
                                 minStep: this.accessory.temperatureIncrement
                             })
                             .onGet(async () => {
-                                const value =  MiElHVAC.lastSetTempHeat;
-                                    //this.accessory.operationMode === 'auto' ? this.accessory.defaultHeatingSetTemperature : this.accessory.setTemperature;
+                                const value =  MiElHVAC.lastSetTempHeat; //this.accessory.operationMode === 'auto' ? this.accessory.defaultHeatingSetTemperature : this.accessory.setTemperature;
                                 return value;
                             })
                             .onSet(async (value) => {
@@ -1195,8 +1202,6 @@ class TasmotaDevice extends EventEmitter {
                                         value = (value + this.accessory.defaultCoolingSetTemperature) / 2;
                                     }
 
-                                    // const temp = `${MiElHVAC.SetTemp}${value}`
-                                    // const temp = MiElHVAC.SetTemp.replace("#TEMP#", value).replace("#MODE#", MiElHVAC.lastSetMode);
                                     MiElHVAC.lastSetTemp = value;
                                     MiElHVAC.lastSetTempHeat = value;
                                 
@@ -1205,9 +1210,6 @@ class TasmotaDevice extends EventEmitter {
                                         this.emit('warn', `Sendcommand HEATTEMPSET`);
                                     }
 
-                                        // await this.axiosInstance(MiElHVAC.sendCommand());
-                                    // this.emit('warn', `Sendcommand HEATTEMPSET`);
-                                    // await this.axiosInstance(temp);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'heating threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                                 } catch (error) {
                                     this.emit('warn', `Set heating threshold temperature error: ${error}`);
