@@ -271,49 +271,46 @@ class TasmotaDevice extends EventEmitter {
     async checkDeviceState() {
         const debug = this.enableDebugMode ? this.emit('debug', `Requesting status`) : false;
         try {
-            //power status
-            const powerStatusData = await this.axiosInstance(ApiCommands.PowerStatus);
-            const powerStatus = powerStatusData.data ?? {};
-            // const debug = this.enableDebugMode ? this.emit('debug', `Power status: ${JSON.stringify(powerStatus, null, 2)}`) : false;
+            if (this.device != 0){
+                //power status
+                const powerStatusData = await this.axiosInstance(ApiCommands.PowerStatus);
+                const powerStatus = powerStatusData.data ?? {};
+                // const debug = this.enableDebugMode ? this.emit('debug', `Power status: ${JSON.stringify(powerStatus, null, 2)}`) : false;
 
-            //power status keys
-            const powerStatusKeys = Object.keys(powerStatus);
+                //power status keys
+                const powerStatusKeys = Object.keys(powerStatus);
 
-            //sensor status
-            const sensorStatusData = await this.axiosInstance(ApiCommands.Status);
-            const sensorStatus = sensorStatusData.data ?? {};
-            // const debug1 = this.enableDebugMode ? this.emit('debug', `Sensors status: ${JSON.stringify(sensorStatus, null, 2)}`) : false;
+                //sensor status
+                const sensorStatusData = await this.axiosInstance(ApiCommands.Status);
+                const sensorStatus = sensorStatusData.data ?? {};
+                // const debug1 = this.enableDebugMode ? this.emit('debug', `Sensors status: ${JSON.stringify(sensorStatus, null, 2)}`) : false;
 
-            //sensor status keys
-            const sensorStatusKeys = Object.keys(sensorStatus);
+                //sensor status keys
+                const sensorStatusKeys = Object.keys(sensorStatus);
 
-            //status SNS
-            const statusSnsSupported = sensorStatusKeys.includes('StatusSNS');
-            const statusSns = statusSnsSupported ? sensorStatus.StatusSNS : {};
-            const statusSnsKeys = Object.keys(statusSns);
+                //status SNS
+                const statusSnsSupported = sensorStatusKeys.includes('StatusSNS');
+                const statusSns = statusSnsSupported ? sensorStatus.StatusSNS : {};
+                const statusSnsKeys = Object.keys(statusSns);
 
-            //status STS
-            const statusStsSupported = sensorStatusKeys.includes('StatusSTS');
-            const statusSts = statusStsSupported ? sensorStatus.StatusSTS : {};
-            const statusStsKeys = Object.keys(statusSts);
+                //status STS
+                const statusStsSupported = sensorStatusKeys.includes('StatusSTS');
+                const statusSts = statusStsSupported ? sensorStatus.StatusSTS : {};
+                const statusStsKeys = Object.keys(statusSts);
 
-            //relays
-            const relaysCount = this.relaysCount;
+                //relays
+                const relaysCount = this.relaysCount;
+            }
 
             //device
             switch (this.device) {
                 case 0: //mielhvac
-                    //power
-                    // const power1 = powerStatus.POWER == 'ON' ? 1 : 0;
-
-                    //status SNS
-                    const time = statusSns.Time ?? '';
-                    // const temperatureUnit = statusSns.TempUnit === 'C' ? '°C' : 'F';
-                    const temperatureUnit = '°C'
+                    const power = MiElHVAC.powerstate; //power
+                    const time = '2025-03-25T18:32:02'; //status SNS
+                    const temperatureUnit = '°C' // statusSns.TempUnit === 'C' ? '°C' : 'F';
 
                     //mielhvac
-                    const miElHvac = statusSns.MiElHVAC ?? {};
-                    const power = MiElHVAC.powerstate;
+                    const miElHvac = {}; //statusSns.MiElHVAC ?? {};
                     const roomTemperature = MiElHVAC.lastSetTemp; //miElHvac.Temperature ?? null;
                     const outdoorTemperature = miElHvac.OutdoorTemperature ?? null;
                     const setTemperature = miElHvac.SetTemperature;
