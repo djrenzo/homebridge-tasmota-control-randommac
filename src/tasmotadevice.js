@@ -1080,48 +1080,22 @@ class TasmotaDevice extends EventEmitter {
                         });
                     this.miElHvacService.getCharacteristic(Characteristic.CurrentTemperature)
                         .onGet(async () => {
-                            const value = MiElHVAC.lastSetTemp;
-                                //this.accessory.roomTemperature;
+                            const value = MiElHVAC.lastSetTemp; //this.accessory.roomTemperature;
                             return value;
                         });
                     if (this.accessory.modelSupportsFanSpeed) {
                         this.miElHvacService.getCharacteristic(Characteristic.RotationSpeed)
                             .setProps({
                                 minValue: 0,
-                                maxValue: 4,
-                                    //this.accessory.fanSpeedSetPropsMaxValue,
+                                maxValue: 4, //this.accessory.fanSpeedSetPropsMaxValue,
                                 minStep: 1
                             })
                             .onGet(async () => {
-                                const value = MiElHVAC.lastSetFan;
-                                    //this.accessory.fanSpeed; //AUTO, 1, 2, 3, 4, 5
+                                const value = MiElHVAC.lastSetFan; //this.accessory.fanSpeed; //AUTO, 1, 2, 3, 4, 5
                                 return value;
                             })
                             .onSet(async (value) => {
-                                try {
-                                    let fanSpeed = 0;
-                                    let fanSpeedModeText = 'off';
-                                    switch (this.accessory.numberOfFanSpeeds) {
-                                        case 2: //Fan speed mode 2
-                                            fanSpeed = this.accessory.hasAutomaticFanSpeed ? [0, 1, 2, 0][value] : [1, 1, 2][value];
-                                            fanSpeedModeText = this.accessory.hasAutomaticFanSpeed ? ['off', 'quiet', '1', 'auto'][value] : ['off', 'quiet', '1'][value];
-                                            break;
-                                        case 3: //Fan speed mode 3
-                                            fanSpeed = this.accessory.hasAutomaticFanSpeed ? [0, 1, 2, 3, 0][value] : [1, 1, 2, 3][value];
-                                            fanSpeedModeText = this.accessory.hasAutomaticFanSpeed ? ['off', 'quiet', '1', '2', 'auto'][value] : ['off', 'quiet', '1', '2',][value];
-                                            break;
-                                        case 4: //Fan speed mode 4
-                                            fanSpeed = this.accessory.hasAutomaticFanSpeed ? [0, 1, 2, 3, 4, 0][value] : [1, 1, 2, 3, 4][value];
-                                            fanSpeedModeText = this.accessory.hasAutomaticFanSpeed ? ['off', 'quiet', '1', '2', '3', 'auto'][value] : ['off', 'quiet', '1', '2', '3'][value];
-                                            break;
-                                        case 5: //Fan speed mode 5
-                                            fanSpeed = this.accessory.hasAutomaticFanSpeed ? [0, 1, 2, 3, 4, 5, 0][value] : [1, 1, 2, 3, 4, 5][value];
-                                            fanSpeedModeText = this.accessory.hasAutomaticFanSpeed ? ['off', 'quiet', '1', '2', '3', '4', 'auto'][value] : ['off', 'quiet', '1', '2', '3', '4'][value];
-                                            break;
-                                    };
-
-                                    //fan speed mode
-                                    const fanSpeedMap = ['auto', 'quiet', '1', '2', '3', '4'][fanSpeed];
+                                try { //fan speed mode
                                     MiElHVAC.lastSetFan = fanSpeed;
 
                                     if (MiElHVAC.powerstate === 1) {
