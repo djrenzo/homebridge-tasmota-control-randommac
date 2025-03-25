@@ -1820,7 +1820,10 @@ class TasmotaDevice extends EventEmitter {
                                                 } else if (!state) { 
                                                     MiElHVAC.lastSetFan = 0;
                                                 }
-                                                data = MiElHVAC.sendCommand() // data = state ? MiElHVAC.SetFanSpeed['3'] : button.previousValue;
+
+                                                if (MiElHVAC.powerstate === 1){
+                                                    data = MiElHVAC.sendCommand() // data = state ? MiElHVAC.SetFanSpeed['3'] : button.previousValue;
+                                                }
                                                 button.state = state
                                                 break;
                                             case 35: //FAN SPEED 4
