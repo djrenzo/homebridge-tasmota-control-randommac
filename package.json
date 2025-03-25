@@ -1,6 +1,6 @@
 {
   "displayName": "Didi Tasmota Control",
-  "name": "didi-tasmota-control",
+  "name": "homebridge-didi-tasmota-control",
   "version": "0.0.2",
   "description": "Homebridge plugin to control Tasmota flashed devices.",
   "license": "MIT",
