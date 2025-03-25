@@ -284,7 +284,8 @@ class TasmotaDevice extends EventEmitter {
             let statusSts;
             let statusStsKeys;
             let relaysCount;
-
+            
+            this.emit('warn', `Device mode id: ${this.device}`);
             if (this.device !== 0){
                 //power status
                 const powerStatusData = await this.axiosInstance(ApiCommands.PowerStatus);
