@@ -387,7 +387,7 @@ class TasmotaDevice extends EventEmitter {
                     };
 
                     this.emit('warn', `Operating mode: ${operationMode}`);
-                    this.accessory.currentOperationMode = !power ? 0 : this.accessory.currentOperationMode;
+                    this.accessory.currentOperationMode = !power ? 0 : MiElHVAC.lastSetModeInt;
                     this.accessory.operationModeSetPropsMinValue = 0;
                     this.accessory.operationModeSetPropsValidValues = [0, 1, 2];
 
