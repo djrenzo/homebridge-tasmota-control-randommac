@@ -289,27 +289,40 @@ class TasmotaDevice extends EventEmitter {
             if (this.device !== 0){
                 this.emit('warn', `INSIDE==Device mode id: ${this.device}`);
                 //power status
-                const powerStatusData = await this.axiosInstance(ApiCommands.PowerStatus);
-                const powerStatus = powerStatusData.data ?? {};
+                // const 
+                powerStatusData = await this.axiosInstance(ApiCommands.PowerStatus);
+                // const 
+                powerStatus = powerStatusData.data ?? {};
                 // const debug = this.enableDebugMode ? this.emit('debug', `Power status: ${JSON.stringify(powerStatus, null, 2)}`) : false;
                 //power status keys
-                const powerStatusKeys = Object.keys(powerStatus);
+                // const 
+                powerStatusKeys = Object.keys(powerStatus);
                 //sensor status
-                const sensorStatusData = await this.axiosInstance(ApiCommands.Status);
-                const sensorStatus = sensorStatusData.data ?? {};
+                // const 
+                sensorStatusData = await this.axiosInstance(ApiCommands.Status);
+                // const 
+                sensorStatus = sensorStatusData.data ?? {};
                 // const debug1 = this.enableDebugMode ? this.emit('debug', `Sensors status: ${JSON.stringify(sensorStatus, null, 2)}`) : false;
                 //sensor status keys
-                const sensorStatusKeys = Object.keys(sensorStatus);
+                // const 
+                sensorStatusKeys = Object.keys(sensorStatus);
                 //status SNS
-                const statusSnsSupported = sensorStatusKeys.includes('StatusSNS');
-                const statusSns = statusSnsSupported ? sensorStatus.StatusSNS : {};
-                const statusSnsKeys = Object.keys(statusSns);
+                // const 
+                statusSnsSupported = sensorStatusKeys.includes('StatusSNS');
+                // const 
+                statusSns = statusSnsSupported ? sensorStatus.StatusSNS : {};
+                // const 
+                statusSnsKeys = Object.keys(statusSns);
                 //status STS
-                const statusStsSupported = sensorStatusKeys.includes('StatusSTS');
-                const statusSts = statusStsSupported ? sensorStatus.StatusSTS : {};
-                const statusStsKeys = Object.keys(statusSts);
+                // const 
+                statusStsSupported = sensorStatusKeys.includes('StatusSTS');
+                // const 
+                statusSts = statusStsSupported ? sensorStatus.StatusSTS : {};
+                // const 
+                statusStsKeys = Object.keys(statusSts);
                 //relays
-                const relaysCount = this.relaysCount;
+                // const 
+                relaysCount = this.relaysCount;
             }
 
             //device
