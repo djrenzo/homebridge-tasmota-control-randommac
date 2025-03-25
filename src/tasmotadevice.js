@@ -304,7 +304,7 @@ class TasmotaDevice extends EventEmitter {
             switch (this.device) {
                 case 0: //mielhvac
                     //power
-                    const power1 = powerStatus.POWER == 'ON' ? 1 : 0;
+                    // const power1 = powerStatus.POWER == 'ON' ? 1 : 0;
 
                     //status SNS
                     const time = statusSns.Time ?? '';
@@ -313,8 +313,8 @@ class TasmotaDevice extends EventEmitter {
 
                     //mielhvac
                     const miElHvac = statusSns.MiElHVAC ?? {};
-                    const power = miElHvac.Power === 'on' ? 1 : 0;
-                    const roomTemperature = miElHvac.Temperature ?? null;
+                    const power = MiElHVAC.powerstate;
+                    const roomTemperature = MiElHVAC.lastSetTemp; //miElHvac.Temperature ?? null;
                     const outdoorTemperature = miElHvac.OutdoorTemperature ?? null;
                     const setTemperature = miElHvac.SetTemperature;
                     const operationMode = miElHvac.Mode ?? 'Unknown';
@@ -330,7 +330,7 @@ class TasmotaDevice extends EventEmitter {
                     const operationPower = miElHvac.OperationPower ?? 0;
                     const operationEnergy = miElHvac.OperationEnergy ?? 0;
                     const operationStage = miElHvac.OperationStage ?? 'Unknown';
-                    const swingMode = vaneVerticalDirection === 'swing' && vaneHorizontalDirection === 'swing' ? 1 : 0;
+                    const swingMode = 1; //vaneVerticalDirection === 'swing' && vaneHorizontalDirection === 'swing' ? 1 : 0;
                     const defaultCoolingSetTemperature = parseFloat(await this.readData(this.defaultCoolingSetTemperatureFile));
                     const defaultHeatingSetTemperature = parseFloat(await this.readData(this.defaultHeatingSetTemperatureFile));
                     const remoteTemperatureSensorState = miElHvac.RemoteTemperatureSensorState ?? false; //ON, OFF
@@ -388,123 +388,123 @@ class TasmotaDevice extends EventEmitter {
                     };
 
                     //operation mode
-                    const operationModeStageMap = {
-                        'manual': 0,
-                        'heat': 2,
-                        'dry': 1,
-                        'cool': 3,
-                        'fan': 1,
-                        'heat_isee': 2,
-                        'dry_isee': 1,
-                        'cool_isee': 3,
-                        'auto_fan': 1,
-                        'auto_heat': 2,
-                        'auto_cool': 3,
-                        'auto_leader': 4
-                    };
+                    // const operationModeStageMap = {
+                    //     'manual': 0,
+                    //     'heat': 2,
+                    //     'dry': 1,
+                    //     'cool': 3,
+                    //     'fan': 1,
+                    //     'heat_isee': 2,
+                    //     'dry_isee': 1,
+                    //     'cool_isee': 3,
+                    //     'auto_fan': 1,
+                    //     'auto_heat': 2,
+                    //     'auto_cool': 3,
+                    //     'auto_leader': 4
+                    // };
                     switch (operationMode) {
-                        case 'heat':
-                            this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]]; //INACTIVE, IDLE, HEATING, COOLING
-                            this.accessory.targetOperationMode = 1; //AUTO, HEAT, COOL
-                            break;
-                        case 'dry':
-                            this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                            this.accessory.targetOperationMode = this.autoDryFanMode === 2 ? 0 : this.heatDryFanMode === 2 ? 1 : this.coolDryFanMode === 2 ? 2 : this.accessory.targetOperationMode ?? 0;
-                            break;
-                        case 'cool':
-                            this.accessory.currentOperationMode = [3, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                            this.accessory.targetOperationMode = 2;
-                            break;
-                        case 'fan':
-                            this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                            this.accessory.targetOperationMode = this.autoDryFanMode === 3 ? 0 : this.heatDryFanMode === 3 ? 1 : this.coolDryFanMode === 3 ? 2 : this.accessory.targetOperationMode ?? 0;
-                            break;
-                        case 'auto':
-                            this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                            this.accessory.targetOperationMode = 0;
-                            break;
-                        case 'heat_isee':
-                            this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                            this.accessory.targetOperationMode = 1;
-                            break;
-                        case 'dry_isee':
-                            this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                            this.accessory.targetOperationMode = this.autoDryFanMode === 2 ? 0 : this.heatDryFanMode === 2 ? 1 : this.coolDryFanMode === 2 ? 2 : this.accessory.targetOperationMode ?? 0;
-                            break;
-                        case 'cool_isee':
-                            this.accessory.currentOperationMode = [3, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                            this.accessory.targetOperationMode = 2;
-                            break;
+                        // case 'heat':
+                        //     this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]]; //INACTIVE, IDLE, HEATING, COOLING
+                        //     this.accessory.targetOperationMode = 1; //AUTO, HEAT, COOL
+                        //     break;
+                        // case 'dry':
+                        //     this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                        //     this.accessory.targetOperationMode = this.autoDryFanMode === 2 ? 0 : this.heatDryFanMode === 2 ? 1 : this.coolDryFanMode === 2 ? 2 : this.accessory.targetOperationMode ?? 0;
+                        //     break;
+                        // case 'cool':
+                        //     this.accessory.currentOperationMode = [3, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                        //     this.accessory.targetOperationMode = 2;
+                        //     break;
+                        // case 'fan':
+                        //     this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                        //     this.accessory.targetOperationMode = this.autoDryFanMode === 3 ? 0 : this.heatDryFanMode === 3 ? 1 : this.coolDryFanMode === 3 ? 2 : this.accessory.targetOperationMode ?? 0;
+                        //     break;
+                        // case 'auto':
+                        //     this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                        //     this.accessory.targetOperationMode = 0;
+                        //     break;
+                        // case 'heat_isee':
+                        //     this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                        //     this.accessory.targetOperationMode = 1;
+                        //     break;
+                        // case 'dry_isee':
+                        //     this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                        //     this.accessory.targetOperationMode = this.autoDryFanMode === 2 ? 0 : this.heatDryFanMode === 2 ? 1 : this.coolDryFanMode === 2 ? 2 : this.accessory.targetOperationMode ?? 0;
+                        //     break;
+                        // case 'cool_isee':
+                        //     this.accessory.currentOperationMode = [3, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                        //     this.accessory.targetOperationMode = 2;
+                        //     break;
                         default:
                             this.emit('warn', `Unknown operating mode: ${operationMode}`);
                             return
                     };
 
                     this.accessory.currentOperationMode = !power ? 0 : this.accessory.currentOperationMode;
-                    this.accessory.operationModeSetPropsMinValue = modelSupportsAuto && modelSupportsHeat ? 0 : !modelSupportsAuto && modelSupportsHeat ? 1 : modelSupportsAuto && !modelSupportsHeat ? 0 : 2;
+                    this.accessory.operationModeSetPropsMinValue = 0 //modelSupportsAuto && modelSupportsHeat ? 0 : !modelSupportsAuto && modelSupportsHeat ? 1 : modelSupportsAuto && !modelSupportsHeat ? 0 : 2;
                     this.accessory.operationModeSetPropsMaxValue = 2
                     this.accessory.operationModeSetPropsValidValues = modelSupportsAuto && modelSupportsHeat ? [0, 1, 2] : !modelSupportsAuto && modelSupportsHeat ? [1, 2] : modelSupportsAuto && !modelSupportsHeat ? [0, 2] : [2];
 
-                    if (modelSupportsFanSpeed) {
-                        //fan speed mode
-                        const fanSpeedMap = {
-                            'auto': 0,
-                            'quiet': 1,
-                            '1': 2,
-                            '2': 3,
-                            '3': 4,
-                            '4': 5
-                        };
+                    // if (modelSupportsFanSpeed) {
+                    //     //fan speed mode
+                    //     const fanSpeedMap = {
+                    //         'auto': 0,
+                    //         'quiet': 1,
+                    //         '1': 2,
+                    //         '2': 3,
+                    //         '3': 4,
+                    //         '4': 5
+                    //     };
 
-                        switch (numberOfFanSpeeds) {
-                            case 2: //Fan speed mode 2
-                                this.accessory.fanSpeed = hasAutomaticFanSpeed ? [3, 1, 2][fanSpeedMap[fanSpeed]] : [0, 1, 2][fanSpeedMap[fanSpeed]];
-                                this.accessory.fanSpeedSetPropsMaxValue = hasAutomaticFanSpeed ? 3 : 2;
-                                break;
-                            case 3: //Fan speed mode 3
-                                this.accessory.fanSpeed = hasAutomaticFanSpeed ? [4, 1, 2, 3][fanSpeedMap[fanSpeed]] : [0, 1, 2, 3][fanSpeedMap[fanSpeed]];
-                                this.accessory.fanSpeedSetPropsMaxValue = hasAutomaticFanSpeed ? 4 : 3;
-                                break;
-                            case 4: //Fan speed mode 4
-                                this.accessory.fanSpeed = hasAutomaticFanSpeed ? [5, 1, 2, 3, 4][fanSpeedMap[fanSpeed]] : [0, 1, 2, 3, 4][fanSpeedMap[fanSpeed]];
-                                this.accessory.fanSpeedSetPropsMaxValue = hasAutomaticFanSpeed ? 5 : 4;
-                                break;
-                            case 5: //Fan speed mode 5
-                                this.accessory.fanSpeed = hasAutomaticFanSpeed ? [6, 1, 2, 3, 4, 5][fanSpeedMap[fanSpeed]] : [0, 1, 2, 3, 4, 5][fanSpeedMap[fanSpeed]];
-                                this.accessory.fanSpeedSetPropsMaxValue = hasAutomaticFanSpeed ? 6 : 5;
-                                break;
-                        };
-                    };
+                    //     switch (numberOfFanSpeeds) {
+                    //         case 2: //Fan speed mode 2
+                    //             this.accessory.fanSpeed = hasAutomaticFanSpeed ? [3, 1, 2][fanSpeedMap[fanSpeed]] : [0, 1, 2][fanSpeedMap[fanSpeed]];
+                    //             this.accessory.fanSpeedSetPropsMaxValue = hasAutomaticFanSpeed ? 3 : 2;
+                    //             break;
+                    //         case 3: //Fan speed mode 3
+                    //             this.accessory.fanSpeed = hasAutomaticFanSpeed ? [4, 1, 2, 3][fanSpeedMap[fanSpeed]] : [0, 1, 2, 3][fanSpeedMap[fanSpeed]];
+                    //             this.accessory.fanSpeedSetPropsMaxValue = hasAutomaticFanSpeed ? 4 : 3;
+                    //             break;
+                    //         case 4: //Fan speed mode 4
+                    //             this.accessory.fanSpeed = hasAutomaticFanSpeed ? [5, 1, 2, 3, 4][fanSpeedMap[fanSpeed]] : [0, 1, 2, 3, 4][fanSpeedMap[fanSpeed]];
+                    //             this.accessory.fanSpeedSetPropsMaxValue = hasAutomaticFanSpeed ? 5 : 4;
+                    //             break;
+                    //         case 5: //Fan speed mode 5
+                    //             this.accessory.fanSpeed = hasAutomaticFanSpeed ? [6, 1, 2, 3, 4, 5][fanSpeedMap[fanSpeed]] : [0, 1, 2, 3, 4, 5][fanSpeedMap[fanSpeed]];
+                    //             this.accessory.fanSpeedSetPropsMaxValue = hasAutomaticFanSpeed ? 6 : 5;
+                    //             break;
+                    //     };
+                    // };
 
                     //update characteristics
                     if (this.miElHvacService) {
                         this.miElHvacService
                             .updateCharacteristic(Characteristic.Active, power)
-                            .updateCharacteristic(Characteristic.CurrentHeaterCoolerState, this.accessory.currentOperationMode)
-                            .updateCharacteristic(Characteristic.TargetHeaterCoolerState, this.accessory.targetOperationMode)
+                            .updateCharacteristic(Characteristic.CurrentHeaterCoolerState, MiElHVAC.lastSetModeInt + 1)
+                            .updateCharacteristic(Characteristic.TargetHeaterCoolerState, MiElHVAC.lastSetModeInt)
                             .updateCharacteristic(Characteristic.CurrentTemperature, roomTemperature)
-                            .updateCharacteristic(Characteristic.LockPhysicalControls, lockPhysicalControl)
-                            .updateCharacteristic(Characteristic.TemperatureDisplayUnits, useFahrenheit)
+                            .updateCharacteristic(Characteristic.LockPhysicalControls, 0) // lockPhysicalControl)
+                            .updateCharacteristic(Characteristic.TemperatureDisplayUnits, 0) //useFahrenheit)
                             .updateCharacteristic(Characteristic.SwingMode, swingMode);
                         const updateDefCool = operationMode === 'auto' || operationMode === 'cool' ? this.miElHvacService.updateCharacteristic(Characteristic.CoolingThresholdTemperature, operationMode === 'auto' ? defaultCoolingSetTemperature : setTemperature) : false;
                         const updateDefHeat = operationMode === 'auto' || operationMode === 'heat' ? this.miElHvacService.updateCharacteristic(Characteristic.HeatingThresholdTemperature, operationMode === 'auto' ? defaultHeatingSetTemperature : setTemperature) : false;
-                        const updateRS = modelSupportsFanSpeed ? this.miElHvacService.updateCharacteristic(Characteristic.RotationSpeed, this.accessory.fanSpeed) : false;
+                        const updateRS = modelSupportsFanSpeed ? this.miElHvacService.updateCharacteristic(Characteristic.RotationSpeed, MiElHVAC.lastSetFan) : false;
 
-                        if (this.frostProtectEnable) {
-                            if (roomTemperature <= this.frostProtectLowTemp && !power) {
-                                this.miElHvacService
-                                    .setCharacteristic(Characteristic.Active, true)
-                                    .setCharacteristic(Characteristic.TargetHeaterCoolerState, 1)
-                                    .setCharacteristic(Characteristic.HeatingThresholdTemperature, this.frostProtectHighTemp);
-                                this.frostProtectActive = true;
+                        // if (this.frostProtectEnable) {
+                        //     if (roomTemperature <= this.frostProtectLowTemp && !power) {
+                        //         this.miElHvacService
+                        //             .setCharacteristic(Characteristic.Active, true)
+                        //             .setCharacteristic(Characteristic.TargetHeaterCoolerState, 1)
+                        //             .setCharacteristic(Characteristic.HeatingThresholdTemperature, this.frostProtectHighTemp);
+                        //         this.frostProtectActive = true;
 
-                            };
+                        //     };
 
-                            if (roomTemperature >= this.frostProtectHighTemp && this.frostProtectActive) {
-                                this.miElHvacService.setCharacteristic(Characteristic.Active, false);
-                                this.frostProtectActive = false;
-                            };
-                        };
+                        //     if (roomTemperature >= this.frostProtectHighTemp && this.frostProtectActive) {
+                        //         this.miElHvacService.setCharacteristic(Characteristic.Active, false);
+                        //         this.frostProtectActive = false;
+                        //     };
+                        // };
                     };
 
                     // //update presets state
@@ -532,10 +532,10 @@ class TasmotaDevice extends EventEmitter {
                     // };
 
                     //update buttons state
-                    // if (this.buttonsConfiguredCount > 0) {
-                    //     for (let i = 0; i < this.buttonsConfiguredCount; i++) {
-                    //         const button = this.buttonsConfigured[i];
-                    //         const mode = button.mode;
+                    if (this.buttonsConfiguredCount > 0) {
+                        for (let i = 0; i < this.buttonsConfiguredCount; i++) {
+                            const button = this.buttonsConfigured[i];
+                            const mode = button.mode;
                     //         switch (mode) {
                     //             case 0: //POWER ON,OFF
                     //                 button.state = power === 1;
@@ -647,14 +647,14 @@ class TasmotaDevice extends EventEmitter {
                     //                 break;
                     //         };
 
-                    //         //update services
-                    //         if (this.buttonsServices) {
-                    //             const characteristicType = button.characteristicType;
-                    //             this.buttonsServices[i]
-                    //                 .updateCharacteristic(characteristicType, button.state)
-                    //         };
-                    //     };
-                    // };
+                            //update services
+                            if (this.buttonsServices) {
+                                const characteristicType = button.characteristicType;
+                                this.buttonsServices[i]
+                                    .updateCharacteristic(characteristicType, button.state)
+                            };
+                        };
+                    };
 
                     //update sensors state
                     // if (this.sensorsConfiguredCount > 0) {
