@@ -1,6 +1,6 @@
 {
   "displayName": "Didi Tasmota Control",
-  "name": "homebridge-tasmota-control",
+  "name": "didi-tasmota-control",
   "version": "0.0.2",
   "description": "Homebridge plugin to control Tasmota flashed devices.",
   "license": "MIT",
@@ -8,13 +8,13 @@
   "maintainers": [
     "didi"
   ],
-  "homepage": "https://github.com/grzegorz914/homebridge-tasmota-control#readme",
+  "homepage": "https://github.com/djrenzo/homebridge-tasmota-control-randommac#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grzegorz914/homebridge-tasmota-control.git"
+    "url": "git+https://github.com/djrenzo/homebridge-tasmota-control-randommac.git"
   },
   "bugs": {
-    "url": "https://github.com/grzegorz914/homebridge-tasmota-control/issues"
+    "url": "https://github.com/djrenzo/homebridge-tasmota-control-randommacl/issues"
   },
   "type": "module",
   "exports": {
@@ -45,7 +45,7 @@
   ],
   "funding": {
     "type": "github",
-    "url": "https://github.com/sponsors/grzegorz914"
+    "url": "https://github.com/sponsors/djrenzo"
   },
   "contributors": [],
   "scripts": {
