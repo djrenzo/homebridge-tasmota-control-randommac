@@ -393,6 +393,7 @@ class TasmotaDevice extends EventEmitter {
                     this.emit('warn', `Operating mode: ${operationMode}`);
                     this.accessory.currentOperationMode = !power ? 0 : MiElHVAC.lastSetModeInt;
                     this.accessory.operationModeSetPropsMinValue = 0;
+                    this.accessory.operationModeSetPropsMaxValue = 2;
                     this.accessory.operationModeSetPropsValidValues = [0, 1, 2];
 
                     //update characteristics
@@ -1015,8 +1016,10 @@ class TasmotaDevice extends EventEmitter {
                                 if (state === 1 && MiElHVAC.powerstate === 0) {
                                     await new Promise(resolve => setTimeout(resolve, 1000));
                                     await this.axiosInstance(MiElHVAC.sendCommand());
+                                    this.emit('warn', `Sendcommand TURNON`);
                                 } else if (state === 0) {
                                     await this.axiosInstance(MiElHVAC.PowerOff);
+                                    this.emit('warn', `Sendcommand TURNOFF`);
                                 }
                                 // Update stored powerstate
                                 MiElHVAC.powerstate = state;
@@ -1067,6 +1070,7 @@ class TasmotaDevice extends EventEmitter {
                                 
                                 if (MiElHVAC.powerstate === 1) {
                                     await this.axiosInstance(MiElHVAC.sendCommand());
+                                    this.emit('warn', `Sendcommand MODECHANGE`);
                                 }
 
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set operation mode: ${MiElHVAC.OperationMode[value]}`);
@@ -1120,6 +1124,7 @@ class TasmotaDevice extends EventEmitter {
                                     const fanSpeedMap = ['auto', 'quiet', '1', '2', '3', '4'][fanSpeed];
                                     MiElHVAC.lastSetFan = fanSpeed;
                                     await this.axiosInstance(MiElHVAC.sendCommand());
+                                    this.emit('warn', `Sendcommand FANSPEED`);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed mode: ${MiElHVAC.FanSpeed[fanSpeedModeText]}`);
                                 } catch (error) {
                                     this.emit('warn', `Set fan speed mode error: ${error}`);
@@ -1178,6 +1183,7 @@ class TasmotaDevice extends EventEmitter {
                                 MiElHVAC.lastSetTemp = value;
                                 MiElHVAC.lastSetTempCool = value;
                                 await this.axiosInstance(MiElHVAC.sendCommand());
+                                this.emit('warn', `Sendcommand COOLTEMPSET`);
                                 // await this.axiosInstance(temp);
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'cooling threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                             } catch (error) {
@@ -1208,6 +1214,7 @@ class TasmotaDevice extends EventEmitter {
                                     MiElHVAC.lastSetTemp = value;
                                     MiElHVAC.lastSetTempHeat = value;
                                     await this.axiosInstance(MiElHVAC.sendCommand());
+                                    this.emit('warn', `Sendcommand HEATTEMPSET`);
                                     // await this.axiosInstance(temp);
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set ${this.accessory.operationMode === 'auto' ? 'heating threshold temperature' : 'temperature'}: ${value}${this.accessory.temperatureUnit}`);
                                 } catch (error) {
@@ -1482,6 +1489,7 @@ class TasmotaDevice extends EventEmitter {
                                         };
                                         if (MiElHVAC.powerstate === 1){
                                             data = MiElHVAC.sendCommand()
+                                            this.emit('warn', `Sendcommand BUTTON`);
                                             await this.axiosInstance(data);
                                         }
                                         button.state = state
