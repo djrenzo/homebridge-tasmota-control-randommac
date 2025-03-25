@@ -1334,6 +1334,7 @@
         "devices[].serial",
         "devices[].model",
         "devices[].devicenumberid",
+        "devices[].manufacturer",
         {
           "key": "devices[]",
           "type": "section",
