@@ -1325,6 +1325,9 @@
       "items": [
         "devices[].name",
         "devices[].host",
+        "devices[].serial",
+        "devices[].model",
+        "devices[].devicenumberid",
         {
           "key": "devices[]",
           "type": "section",
