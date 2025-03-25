@@ -1593,7 +1593,7 @@ class TasmotaDevice extends EventEmitter {
                     };
                     this.miElHvacService.getCharacteristic(Characteristic.LockPhysicalControls)
                         .onGet(async () => {
-                            const value = this.accessory.lockPhysicalControl;
+                            const value = 0; //this.accessory.lockPhysicalControl;
                             return value;
                         })
                         .onSet(async (value) => {
@@ -1607,7 +1607,7 @@ class TasmotaDevice extends EventEmitter {
                         });
                     this.miElHvacService.getCharacteristic(Characteristic.TemperatureDisplayUnits)
                         .onGet(async () => {
-                            const value = this.accessory.useFahrenheit;
+                            const value = 0; // this.accessory.useFahrenheit;
                             return value;
                         })
                         .onSet(async (value) => {
