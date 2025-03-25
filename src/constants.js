@@ -1,5 +1,5 @@
-export const PlatformName = "tasmotaControl";
-export const PluginName = "homebridge-tasmota-control";
+export const PlatformName = "diditasmotaControl";
+export const PluginName = "homebridge-didi-tasmota-control";
 
 export const ApiCommands = {
     "Status": "Status%200",
