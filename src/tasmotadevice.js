@@ -19,6 +19,7 @@ class TasmotaDevice extends EventEmitter {
         this.name = config.name;
         this.serial = config.serial;
         this.mymodel = config.model;
+        this.mymanufacturer = config.manufacturer;
         this.devicenumberid = config.devicenumberid;
         const host = config.host;
         const auth = config.auth || false;
@@ -1361,7 +1362,7 @@ class TasmotaDevice extends EventEmitter {
             //Prepare information service
             const debug1 = this.enableDebugMode ? this.emit('debug', `Prepare Information Service`) : false;
             accessory.getService(Service.AccessoryInformation)
-                .setCharacteristic(Characteristic.Manufacturer, 'DidiLamp')
+                .setCharacteristic(Characteristic.Manufacturer, this.mymanufacturer)
                 .setCharacteristic(Characteristic.Model, this.modelName ?? 'Model Name')
                 .setCharacteristic(Characteristic.SerialNumber, this.serialNumber ?? 'Serial Number')
                 .setCharacteristic(Characteristic.FirmwareRevision, this.firmwareRevision.replace(/[a-zA-Z]/g, '') ?? '0')

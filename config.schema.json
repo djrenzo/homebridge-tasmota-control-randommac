@@ -40,6 +40,12 @@
               "placeholder": "DIDIMODEL101",
               "required": true
             },
+            "manufacturer": {
+              "title": "Manufacturer",
+              "type": "string",
+              "placeholder": "DIDIORG",
+              "required": true
+            },
             "devicenumberid": {
               "title": "DeviceNumberID",
               "type": "integer",
