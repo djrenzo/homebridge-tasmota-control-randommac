@@ -387,58 +387,58 @@ class TasmotaDevice extends EventEmitter {
                         hideVaneControls: hideVaneControls
                     };
 
-                    // //operation mode
-                    // const operationModeStageMap = {
-                    //     'manual': 0,
-                    //     'heat': 2,
-                    //     'dry': 1,
-                    //     'cool': 3,
-                    //     'fan': 1,
-                    //     'heat_isee': 2,
-                    //     'dry_isee': 1,
-                    //     'cool_isee': 3,
-                    //     'auto_fan': 1,
-                    //     'auto_heat': 2,
-                    //     'auto_cool': 3,
-                    //     'auto_leader': 4
-                    // };
-                    // switch (operationMode) {
-                    //     case 'heat':
-                    //         this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]]; //INACTIVE, IDLE, HEATING, COOLING
-                    //         this.accessory.targetOperationMode = 1; //AUTO, HEAT, COOL
-                    //         break;
-                    //     case 'dry':
-                    //         this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                    //         this.accessory.targetOperationMode = this.autoDryFanMode === 2 ? 0 : this.heatDryFanMode === 2 ? 1 : this.coolDryFanMode === 2 ? 2 : this.accessory.targetOperationMode ?? 0;
-                    //         break;
-                    //     case 'cool':
-                    //         this.accessory.currentOperationMode = [3, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                    //         this.accessory.targetOperationMode = 2;
-                    //         break;
-                    //     case 'fan':
-                    //         this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                    //         this.accessory.targetOperationMode = this.autoDryFanMode === 3 ? 0 : this.heatDryFanMode === 3 ? 1 : this.coolDryFanMode === 3 ? 2 : this.accessory.targetOperationMode ?? 0;
-                    //         break;
-                    //     case 'auto':
-                    //         this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                    //         this.accessory.targetOperationMode = 0;
-                    //         break;
-                    //     case 'heat_isee':
-                    //         this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                    //         this.accessory.targetOperationMode = 1;
-                    //         break;
-                    //     case 'dry_isee':
-                    //         this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                    //         this.accessory.targetOperationMode = this.autoDryFanMode === 2 ? 0 : this.heatDryFanMode === 2 ? 1 : this.coolDryFanMode === 2 ? 2 : this.accessory.targetOperationMode ?? 0;
-                    //         break;
-                    //     case 'cool_isee':
-                    //         this.accessory.currentOperationMode = [3, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
-                    //         this.accessory.targetOperationMode = 2;
-                    //         break;
-                    //     default:
-                    //         this.emit('warn', `Unknown operating mode: ${operationMode}`);
-                    //         return
-                    // };
+                    //operation mode
+                    const operationModeStageMap = {
+                        'manual': 0,
+                        'heat': 2,
+                        'dry': 1,
+                        'cool': 3,
+                        'fan': 1,
+                        'heat_isee': 2,
+                        'dry_isee': 1,
+                        'cool_isee': 3,
+                        'auto_fan': 1,
+                        'auto_heat': 2,
+                        'auto_cool': 3,
+                        'auto_leader': 4
+                    };
+                    switch (operationMode) {
+                        case 'heat':
+                            this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]]; //INACTIVE, IDLE, HEATING, COOLING
+                            this.accessory.targetOperationMode = 1; //AUTO, HEAT, COOL
+                            break;
+                        case 'dry':
+                            this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                            this.accessory.targetOperationMode = this.autoDryFanMode === 2 ? 0 : this.heatDryFanMode === 2 ? 1 : this.coolDryFanMode === 2 ? 2 : this.accessory.targetOperationMode ?? 0;
+                            break;
+                        case 'cool':
+                            this.accessory.currentOperationMode = [3, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                            this.accessory.targetOperationMode = 2;
+                            break;
+                        case 'fan':
+                            this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                            this.accessory.targetOperationMode = this.autoDryFanMode === 3 ? 0 : this.heatDryFanMode === 3 ? 1 : this.coolDryFanMode === 3 ? 2 : this.accessory.targetOperationMode ?? 0;
+                            break;
+                        case 'auto':
+                            this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                            this.accessory.targetOperationMode = 0;
+                            break;
+                        case 'heat_isee':
+                            this.accessory.currentOperationMode = [2, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                            this.accessory.targetOperationMode = 1;
+                            break;
+                        case 'dry_isee':
+                            this.accessory.currentOperationMode = [1, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                            this.accessory.targetOperationMode = this.autoDryFanMode === 2 ? 0 : this.heatDryFanMode === 2 ? 1 : this.coolDryFanMode === 2 ? 2 : this.accessory.targetOperationMode ?? 0;
+                            break;
+                        case 'cool_isee':
+                            this.accessory.currentOperationMode = [3, 1, 2, 3, 0][operationModeStageMap[operationModeStage]];
+                            this.accessory.targetOperationMode = 2;
+                            break;
+                        default:
+                            this.emit('warn', `Unknown operating mode: ${operationMode}`);
+                            return
+                    };
 
                     this.accessory.currentOperationMode = !power ? 0 : this.accessory.currentOperationMode;
                     this.accessory.operationModeSetPropsMinValue = modelSupportsAuto && modelSupportsHeat ? 0 : !modelSupportsAuto && modelSupportsHeat ? 1 : modelSupportsAuto && !modelSupportsHeat ? 0 : 2;
@@ -532,129 +532,129 @@ class TasmotaDevice extends EventEmitter {
                     };
 
                     //update buttons state
-                    if (this.buttonsConfiguredCount > 0) {
-                        for (let i = 0; i < this.buttonsConfiguredCount; i++) {
-                            const button = this.buttonsConfigured[i];
-                            const mode = button.mode;
-                            switch (mode) {
-                                case 0: //POWER ON,OFF
-                                    button.state = power === 1;
-                                    break;
-                                case 1: //OPERATING MODE HEAT
-                                    button.state = power ? (operationMode === 'heat' || operationMode === 'heat_isee') : false;
-                                    break;
-                                case 2: //OPERATING MODE DRY
-                                    button.state = power ? (operationMode === 'dry' || operationMode === 'dry_isee') : false;
-                                    break
-                                case 3: //OPERATING MODE COOL
-                                    button.state = power ? (operationMode === 'cool' || operationMode === 'cool_isee') : false;
-                                    break;
-                                case 4: //OPERATING MODE FAN
-                                    button.state = power ? (operationMode === 'fan') : false;
-                                    break;
-                                case 5: //OPERATING MODE AUTO
-                                    button.state = power ? (operationMode === 'auto') : false;
-                                    break;
-                                case 6: //OPERATING MODE PURIFY
-                                    button.state = power ? (operationMode === 'purify') : false;
-                                    break;
-                                case 10: //VANE H AUTO
-                                    button.state = power ? (vaneHorizontalDirection === 'auto') : false;
-                                    break;
-                                case 11: //VANE H LEFT
-                                    button.state = power ? (vaneHorizontalDirection === 'left') : false;
-                                    break;
-                                case 12: //VANE H LEFT MIDDLE
-                                    button.state = power ? (vaneHorizontalDirection === 'left_middle') : false;
-                                    break;
-                                case 13: //VANE H CENTER
-                                    button.state = power ? (vaneHorizontalDirection === 'center') : false;
-                                    break;
-                                case 14: //VANE H RIGHT MIDDLE
-                                    button.state = power ? (vaneHorizontalDirection === 'right_middle') : false;
-                                    break;
-                                case 15: //VANE H RIGHT
-                                    button.state = power ? (vaneHorizontalDirection === 'right') : false;
-                                    break;
-                                case 16: //VANE H SPLIT
-                                    button.state = power ? (vaneHorizontalDirection === 'split') : false;
-                                    break;
-                                case 17: //VANE H SWING
-                                    button.state = power ? (vaneHorizontalDirection === 'swing') : false;
-                                    break;
-                                case 20: //VANE V AUTO
-                                    button.state = power ? (vaneVerticalDirection === 'auto') : false;
-                                    break;
-                                case 21: //VANE V UP
-                                    button.state = power ? (vaneVerticalDirection === 'up') : false;
-                                    break;
-                                case 22: //VANE V UP MIDDLE
-                                    button.state = power ? (vaneVerticalDirection === 'up_middle') : false;
-                                    break;
-                                case 23: //VANE V CENTER
-                                    button.state = power ? (vaneVerticalDirection === 'center') : false;
-                                    break;
-                                case 24: //VANE V DOWN MIDDLE
-                                    button.state = power ? (vaneVerticalDirection === 'down_middle') : false;
-                                    break;
-                                case 25: //VANE V DOWN
-                                    button.state = power ? (vaneVerticalDirection === 'down') : false;
-                                    break;
-                                case 26: //VANE V SWING
-                                    button.state = power ? (vaneVerticalDirection === 'swing') : false;
-                                    break;
-                                case 30: //FAN SPEED MODE AUTO
-                                    button.state = power ? (fanSpeed === 'auto') : false;
-                                    break;
-                                case 31: //FAN SPEED MODE 1
-                                    button.state = power ? (fanSpeed === 'quiet') : false;
-                                    break;
-                                case 32: //FAN SPEED MODE 2
-                                    button.state = power ? (fanSpeed === '1') : false;
-                                    break;
-                                case 33: //FAN SPEED MODE 3
-                                    button.state = power ? (fanSpeed === '2') : false;
-                                    break;
-                                case 34: //FAN SPEED MODE 4
-                                    button.state = power ? (fanSpeed === '3') : false;
-                                    break;
-                                case 35: //FAN SPEED  MODE 5
-                                    button.state = power ? (fanSpeed === '4') : false;
-                                    break;
-                                case 40: //AIR DIRECTION EVEN
-                                    button.state = power ? (airDirection === 'even') : false;
-                                    break;
-                                case 41: //AIR DIRECTION INDIRECT
-                                    button.state = power ? (airDirection === 'indirect') : false;
-                                    break;
-                                case 42: //AIR DIRECTION DIRECT
-                                    button.state = power ? (airDirection === 'direct') : false;
-                                    break;
-                                case 50: //PHYSICAL LOCK CONTROLS ALL
-                                    button.state = prohibit === 'all';
-                                    break;
-                                case 51: //PHYSICAL LOCK CONTROLS POWER
-                                    button.state = prohibit === 'power';
-                                    break;
-                                case 52: //PHYSICAL LOCK CONTROLS MODE
-                                    button.state = prohibit === 'mode';
-                                    break;
-                                case 53: //PHYSICAL LOCK CONTROLS TEMP
-                                    button.state = prohibit === 'temp';
-                                    break;
-                                default: //Unknown button
-                                    this.emit('message', `Unknown button mode: ${mode} detected`);
-                                    break;
-                            };
+                    // if (this.buttonsConfiguredCount > 0) {
+                    //     for (let i = 0; i < this.buttonsConfiguredCount; i++) {
+                    //         const button = this.buttonsConfigured[i];
+                    //         const mode = button.mode;
+                    //         switch (mode) {
+                    //             case 0: //POWER ON,OFF
+                    //                 button.state = power === 1;
+                    //                 break;
+                    //             case 1: //OPERATING MODE HEAT
+                    //                 button.state = power ? (operationMode === 'heat' || operationMode === 'heat_isee') : false;
+                    //                 break;
+                    //             case 2: //OPERATING MODE DRY
+                    //                 button.state = power ? (operationMode === 'dry' || operationMode === 'dry_isee') : false;
+                    //                 break
+                    //             case 3: //OPERATING MODE COOL
+                    //                 button.state = power ? (operationMode === 'cool' || operationMode === 'cool_isee') : false;
+                    //                 break;
+                    //             case 4: //OPERATING MODE FAN
+                    //                 button.state = power ? (operationMode === 'fan') : false;
+                    //                 break;
+                    //             case 5: //OPERATING MODE AUTO
+                    //                 button.state = power ? (operationMode === 'auto') : false;
+                    //                 break;
+                    //             case 6: //OPERATING MODE PURIFY
+                    //                 button.state = power ? (operationMode === 'purify') : false;
+                    //                 break;
+                    //             case 10: //VANE H AUTO
+                    //                 button.state = power ? (vaneHorizontalDirection === 'auto') : false;
+                    //                 break;
+                    //             case 11: //VANE H LEFT
+                    //                 button.state = power ? (vaneHorizontalDirection === 'left') : false;
+                    //                 break;
+                    //             case 12: //VANE H LEFT MIDDLE
+                    //                 button.state = power ? (vaneHorizontalDirection === 'left_middle') : false;
+                    //                 break;
+                    //             case 13: //VANE H CENTER
+                    //                 button.state = power ? (vaneHorizontalDirection === 'center') : false;
+                    //                 break;
+                    //             case 14: //VANE H RIGHT MIDDLE
+                    //                 button.state = power ? (vaneHorizontalDirection === 'right_middle') : false;
+                    //                 break;
+                    //             case 15: //VANE H RIGHT
+                    //                 button.state = power ? (vaneHorizontalDirection === 'right') : false;
+                    //                 break;
+                    //             case 16: //VANE H SPLIT
+                    //                 button.state = power ? (vaneHorizontalDirection === 'split') : false;
+                    //                 break;
+                    //             case 17: //VANE H SWING
+                    //                 button.state = power ? (vaneHorizontalDirection === 'swing') : false;
+                    //                 break;
+                    //             case 20: //VANE V AUTO
+                    //                 button.state = power ? (vaneVerticalDirection === 'auto') : false;
+                    //                 break;
+                    //             case 21: //VANE V UP
+                    //                 button.state = power ? (vaneVerticalDirection === 'up') : false;
+                    //                 break;
+                    //             case 22: //VANE V UP MIDDLE
+                    //                 button.state = power ? (vaneVerticalDirection === 'up_middle') : false;
+                    //                 break;
+                    //             case 23: //VANE V CENTER
+                    //                 button.state = power ? (vaneVerticalDirection === 'center') : false;
+                    //                 break;
+                    //             case 24: //VANE V DOWN MIDDLE
+                    //                 button.state = power ? (vaneVerticalDirection === 'down_middle') : false;
+                    //                 break;
+                    //             case 25: //VANE V DOWN
+                    //                 button.state = power ? (vaneVerticalDirection === 'down') : false;
+                    //                 break;
+                    //             case 26: //VANE V SWING
+                    //                 button.state = power ? (vaneVerticalDirection === 'swing') : false;
+                    //                 break;
+                    //             case 30: //FAN SPEED MODE AUTO
+                    //                 button.state = power ? (fanSpeed === 'auto') : false;
+                    //                 break;
+                    //             case 31: //FAN SPEED MODE 1
+                    //                 button.state = power ? (fanSpeed === 'quiet') : false;
+                    //                 break;
+                    //             case 32: //FAN SPEED MODE 2
+                    //                 button.state = power ? (fanSpeed === '1') : false;
+                    //                 break;
+                    //             case 33: //FAN SPEED MODE 3
+                    //                 button.state = power ? (fanSpeed === '2') : false;
+                    //                 break;
+                    //             case 34: //FAN SPEED MODE 4
+                    //                 button.state = power ? (fanSpeed === '3') : false;
+                    //                 break;
+                    //             case 35: //FAN SPEED  MODE 5
+                    //                 button.state = power ? (fanSpeed === '4') : false;
+                    //                 break;
+                    //             case 40: //AIR DIRECTION EVEN
+                    //                 button.state = power ? (airDirection === 'even') : false;
+                    //                 break;
+                    //             case 41: //AIR DIRECTION INDIRECT
+                    //                 button.state = power ? (airDirection === 'indirect') : false;
+                    //                 break;
+                    //             case 42: //AIR DIRECTION DIRECT
+                    //                 button.state = power ? (airDirection === 'direct') : false;
+                    //                 break;
+                    //             case 50: //PHYSICAL LOCK CONTROLS ALL
+                    //                 button.state = prohibit === 'all';
+                    //                 break;
+                    //             case 51: //PHYSICAL LOCK CONTROLS POWER
+                    //                 button.state = prohibit === 'power';
+                    //                 break;
+                    //             case 52: //PHYSICAL LOCK CONTROLS MODE
+                    //                 button.state = prohibit === 'mode';
+                    //                 break;
+                    //             case 53: //PHYSICAL LOCK CONTROLS TEMP
+                    //                 button.state = prohibit === 'temp';
+                    //                 break;
+                    //             default: //Unknown button
+                    //                 this.emit('message', `Unknown button mode: ${mode} detected`);
+                    //                 break;
+                    //         };
 
-                            //update services
-                            if (this.buttonsServices) {
-                                const characteristicType = button.characteristicType;
-                                this.buttonsServices[i]
-                                    .updateCharacteristic(characteristicType, button.state)
-                            };
-                        };
-                    };
+                    //         //update services
+                    //         if (this.buttonsServices) {
+                    //             const characteristicType = button.characteristicType;
+                    //             this.buttonsServices[i]
+                    //                 .updateCharacteristic(characteristicType, button.state)
+                    //         };
+                    //     };
+                    // };
 
                     //update sensors state
                     if (this.sensorsConfiguredCount > 0) {
