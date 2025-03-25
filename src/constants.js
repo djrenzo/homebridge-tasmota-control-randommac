@@ -29,10 +29,11 @@ export const MiElHVAC = {
     lastSetTempHeat: 22,
     lastSetFan: 1,
     lastSetMode: "Auto",
+    lastSetSwing: "Auto",
     lastSetModeInt: 0,
     powerstate: 0,
     "PowerOff": "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"Off\"}",
-    baseCommand: "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"#FANSPEED#\"}",
+    baseCommand: "irhvac:{\"Vendor\":\"MITSUBISHI_AC\",\"Model\":-1,\"Power\":\"On\",\"Mode\":\"#MODE#\",\"Temp\":\"#TEMP#\",\"FanSpeed\":\"#FANSPEED#\",\"SwingV\":\"#SWING#\"}",
     fanSpeeds: {
         0: "Auto",
         1: "Low",
@@ -42,11 +43,11 @@ export const MiElHVAC = {
     },
     sendCommand() {
         if (this.lastSetMode === "Heat") {
-            return this.baseCommand.replace("#MODE#", this.lastSetMode).replace("#TEMP#", this.lastSetTempHeat).replace("#FANSPEED#", this.fanSpeeds[this.lastSetFan]);
+            return this.baseCommand.replace("#SWING#", this.lastSetSwing).replace("#MODE#", this.lastSetMode).replace("#TEMP#", this.lastSetTempHeat).replace("#FANSPEED#", this.fanSpeeds[this.lastSetFan]);
         } else if (this.lastSetMode === "Cool") {
-            return this.baseCommand.replace("#MODE#", this.lastSetMode).replace("#TEMP#", this.lastSetTempCool).replace("#FANSPEED#", this.fanSpeeds[this.lastSetFan]);
+            return this.baseCommand.replace("#SWING#", this.lastSetSwing).replace("#MODE#", this.lastSetMode).replace("#TEMP#", this.lastSetTempCool).replace("#FANSPEED#", this.fanSpeeds[this.lastSetFan]);
         } else {
-            return this.baseCommand.replace("#MODE#", this.lastSetMode).replace("#TEMP#", this.lastSetTemp).replace("#FANSPEED#", this.fanSpeeds[this.lastSetFan]);
+            return this.baseCommand.replace("#SWING#", this.lastSetSwing).replace("#MODE#", this.lastSetMode).replace("#TEMP#", this.lastSetTemp).replace("#FANSPEED#", this.fanSpeeds[this.lastSetFan]);
         }
     },
     "PowerOn": "irhvac",
