@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "tasmotaControl",
+  "pluginAlias": "diditasmotaControl",
   "pluginType": "platform",
   "singular": true,
   "fixArrays": true,
