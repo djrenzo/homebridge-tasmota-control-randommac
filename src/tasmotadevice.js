@@ -1101,23 +1101,28 @@ class TasmotaDevice extends EventEmitter {
                                     };
                                     
                                     // update fanspeed 4 button
-                                    if (value === 4){
-                                        if (this.buttonsConfiguredCount > 0) {
-                                            for (let i = 0; i < this.buttonsConfiguredCount; i++) {
-                                                const button = this.buttonsConfigured[i];
-                                                const mode = button.mode; //get button mode
-                                                
-                                                if (this.buttonsServices) { //update services
-                                                    if (mode === 34){
+                                    if (this.buttonsConfiguredCount > 0) {
+                                        for (let i = 0; i < this.buttonsConfiguredCount; i++) {
+                                            const button = this.buttonsConfigured[i];
+                                            const mode = button.mode; //get button mode
+                                            
+                                            if (this.buttonsServices) { //update services
+                                                if (mode === 34){
+                                                    if (value === 4){
                                                         button.state = true;
-                                                        
-                                                        const characteristicType = button.characteristicType;
-                                                        this.buttonsServices[i].updateCharacteristic(characteristicType, button.state)
+                                                        this.emit('warn', `BUTTON FULLSPEED ON`);
+                                                    } else {
+                                                        button.state = false;
+                                                        this.emit('warn', `BUTTON FULLSPEED OFF`);
                                                     };
+
+                                                    const characteristicType = button.characteristicType;
+                                                    this.buttonsServices[i].updateCharacteristic(characteristicType, button.state);
                                                 };
                                             };
                                         };
                                     };
+                                    
 
                                     const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed: ${MiElHVAC.fanSpeeds[value]}`);
                                 } catch (error) {
