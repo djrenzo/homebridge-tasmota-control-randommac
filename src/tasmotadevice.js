@@ -1072,7 +1072,8 @@ class TasmotaDevice extends EventEmitter {
 
                                 this.miElHvacService
                                         .updateCharacteristic(Characteristic.TargetHeaterCoolerState, value)
-                                        .updateCharacteristic(Characteristic.CurrentHeaterCoolerState, value + 1);
+                                        .updateCharacteristic(Characteristic.CurrentHeaterCoolerState, value + 1)
+                                        .updateCharacteristic(Characteristic.CurrentTemperature, MiElHVAC.lastSetTemp);
 
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set operation mode: ${MiElHVAC.OperationMode[value]}`);
                             } catch (error) {
