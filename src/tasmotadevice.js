@@ -1119,7 +1119,7 @@ class TasmotaDevice extends EventEmitter {
                                         };
                                     };
 
-                                    const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed mode: ${MiElHVAC.FanSpeed[fanSpeedModeText]}`);
+                                    const info = this.disableLogInfo ? false : this.emit('message', `Set fan speed: ${MiElHVAC.fanSpeeds[value]}`);
                                 } catch (error) {
                                     this.emit('warn', `Set fan speed mode error: ${error}`);
                                 };
