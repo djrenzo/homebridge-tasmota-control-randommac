@@ -443,7 +443,7 @@ class TasmotaDevice extends EventEmitter {
                             if (this.buttonsServices) {
                                 const characteristicType = button.characteristicType;
                                 this.buttonsServices[i]
-                                    .updateCharacteristic(characteristicType, button.state)
+                                    .updateCharacteristic(characteristicType, button.state);
                             };
                         };
                     };
@@ -455,7 +455,7 @@ class TasmotaDevice extends EventEmitter {
                             if (this.sensorsServices) { //update services
                                 const characteristicType = sensor.characteristicType;
                                 this.sensorsServices[i]
-                                    .updateCharacteristic(characteristicType, sensor.state)
+                                    .updateCharacteristic(characteristicType, sensor.state);
                             };
                         };
                     };
@@ -463,13 +463,13 @@ class TasmotaDevice extends EventEmitter {
                     //update room temperature sensor
                     if (this.roomTemperatureSensorService) {
                         this.roomTemperatureSensorService
-                            .updateCharacteristic(Characteristic.CurrentTemperature, roomTemperature)
+                            .updateCharacteristic(Characteristic.CurrentTemperature, roomTemperature);
                     };
 
                     //update outdoor temperature sensor
                     if (this.outdoorTemperatureSensorService) {
                         this.outdoorTemperatureSensorService
-                            .updateCharacteristic(Characteristic.CurrentTemperature, outdoorTemperature)
+                            .updateCharacteristic(Characteristic.CurrentTemperature, outdoorTemperature);
                     };
 
                     //log current state
@@ -1070,6 +1070,10 @@ class TasmotaDevice extends EventEmitter {
                                     this.emit('warn', `Sendcommand MODECHANGE`);
                                 }
 
+                                this.miElHvacService
+                                        .updateCharacteristic(Characteristic.TargetHeaterCoolerState, value)
+                                        .updateCharacteristic(Characteristic.CurrentHeaterCoolerState, value + 1);
+
                                 const info = this.disableLogInfo ? false : this.emit('message', `Set operation mode: ${MiElHVAC.OperationMode[value]}`);
                             } catch (error) {
                                 this.emit('warn', `Set operation mode error: ${error}`);
@@ -1178,6 +1182,10 @@ class TasmotaDevice extends EventEmitter {
 
                                 MiElHVAC.lastSetTemp = value;
                                 MiElHVAC.lastSetTempCool = value;
+
+                                this.miElHvacService
+                                        .updateCharacteristic(Characteristic.CurrentTemperature, value)
+                                        .updateCharacteristic(Characteristic.CoolingThresholdTemperature, value);
                                 
                                 if (MiElHVAC.powerstate === 1) {
                                     await this.axiosInstance(MiElHVAC.sendCommand());
@@ -1209,6 +1217,10 @@ class TasmotaDevice extends EventEmitter {
 
                                     MiElHVAC.lastSetTemp = value;
                                     MiElHVAC.lastSetTempHeat = value;
+
+                                    this.miElHvacService
+                                            .updateCharacteristic(Characteristic.CurrentTemperature, value)
+                                            .updateCharacteristic(Characteristic.HeatingThresholdTemperature, value);
                                 
                                     if (MiElHVAC.powerstate === 1) {
                                         await this.axiosInstance(MiElHVAC.sendCommand());
